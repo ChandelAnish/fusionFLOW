@@ -1,6 +1,38 @@
 import React from "react";
 
-export default function SignIn() {
+export default function SignUp() {
+
+  const handelFormSubmit = async (e) => {
+    e.preventDefault()
+    const form = e.target
+
+    const username = form.username.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+
+    const userDetails = { username, email, password, confirmPassword }
+
+    const response = await signup(userDetails)
+    console.log(response)
+  }
+
+  const signup = async (userDetails) => {
+    try {
+      const response = await fetch('http://localhost:5000/signup',{
+        method:'POST',
+        headers:{
+          'Content-type':'application/json'
+        },
+        body:JSON.stringify(userDetails)
+      })
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <div className="d-flex align-items-center py-4 bg-body-tertiary" style={{ height: '100vh' }}>
@@ -91,27 +123,52 @@ export default function SignIn() {
           </ul>
         </div>
 
-        <main className="form-signin m-auto rounded-4" style={{ width: "20rem", backgroundColor: "white", padding:"25px"}}>
-          <form>
-            <h1 className="h3 mb-3 fw-normal">Welcome back !</h1>
+        <main className="form-signin m-auto rounded-4" style={{ width: "25rem", backgroundColor: "white", padding: "25px" }}>
+          <form onSubmit={handelFormSubmit}>
+            <h1 className="h3 mb-3 fw-normal">Sign Up to fusionFLOW</h1>
+
+            <div className="form-floating mb-2">
+              <input
+                type="text"
+                className="form-control"
+                id="username"
+                placeholder="name_123"
+                name="username"
+              />
+              <label htmlFor="username">Username</label>
+            </div>
 
             <div className="form-floating mb-2">
               <input
                 type="email"
                 className="form-control"
-                id="floatingInput"
+                id="email"
                 placeholder="name@example.com"
+                name="email"
               />
-              <label htmlFor="floatingInput">Email address</label>
+              <label htmlFor="email">Email address</label>
             </div>
+
+            <div className="form-floating mb-2">
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                placeholder="Password"
+                name="password"
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+
             <div className="form-floating">
               <input
                 type="password"
                 className="form-control"
-                id="floatingPassword"
+                id="confirmPassword"
                 placeholder="Password"
+                name="confirmPassword"
               />
-              <label htmlFor="floatingPassword">Password</label>
+              <label htmlFor="confirmPassword">Confirm Password</label>
             </div>
 
             <div className="form-check text-start my-3">
@@ -126,7 +183,7 @@ export default function SignIn() {
               </label>
             </div>
             <button className="btn btn-primary py-2" type="submit" style={{ width: "10rem" }}>
-              Sign in
+              Sign up
             </button>
 
           </form>

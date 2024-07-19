@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+
 
 export default function SideBar() {
 
@@ -19,40 +21,40 @@ export default function SideBar() {
                 <hr />
                 <ul className="nav nav-pills flex-column mb-auto">
                     <li className="nav-item">
-                        <a href="#" className={`nav-link ${(active === 'Blurbs') ? 'active' : ''}`} aria-current="page" onClick={() => markActive('Blurbs')} style={{ color: (active != 'Blurbs') ? 'black' : 'white' }}>
+                        <Link to="/" className={`nav-link ${(active === 'Blurbs') ? 'active' : ''}`} aria-current="page" onClick={() => markActive('Blurbs')} style={{ color: (active != 'Blurbs') ? 'black' : 'white' }}>
                             <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#home"></use></svg>
                             Blurbs
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav-item">
-                        <a href="#" className={`nav-link ${(active === 'Chat') ? 'active' : ''}`} aria-current="page" onClick={() => markActive('Chat')} style={{ color: (active != 'Chat') ? 'black' : 'white' }}>
+                        <Link to="/chat" className={`nav-link ${(active === 'Chat') ? 'active' : ''}`} aria-current="page" onClick={() => markActive('Chat')} style={{ color: (active != 'Chat') ? 'black' : 'white' }}>
                             <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#home"></use></svg>
                             Chat
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav-item">
-                        <a href="#" className={`nav-link ${(active === 'VideoCall') ? 'active' : ''}`} aria-current="page" onClick={() => markActive('VideoCall')} style={{ color: (active != 'VideoCall') ? 'black' : 'white' }}>
+                        <Link to="/videocall" className={`nav-link ${(active === 'VideoCall') ? 'active' : ''}`} aria-current="page" onClick={() => markActive('VideoCall')} style={{ color: (active != 'VideoCall') ? 'black' : 'white' }}>
                             <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#home"></use></svg>
                             Video Call
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" className={`nav-link ${(active === 'Expenses') ? 'active' : ''}`} onClick={() => markActive('Expenses')} style={{ color: (active === 'Expenses') ? 'white' : 'black' }}>
+                        <Link to="/expenses" className={`nav-link ${(active === 'Expenses') ? 'active' : ''}`} onClick={() => markActive('Expenses')} style={{ color: (active === 'Expenses') ? 'white' : 'black' }}>
                             <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#speedometer2"></use></svg>
                             Expenses
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" className={`nav-link ${(active === 'Email') ? 'active' : ''}`} onClick={() => markActive('Email')} style={{ color: (active === 'Email') ? 'white' : 'black' }}>
+                        <Link to="/email" className={`nav-link ${(active === 'Email') ? 'active' : ''}`} onClick={() => markActive('Email')} style={{ color: (active === 'Email') ? 'white' : 'black' }}>
                             <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#speedometer2"></use></svg>
                             Email
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" className={`nav-link ${(active === 'Spot') ? 'active' : ''}`} onClick={() => markActive('Spot')} style={{ color: (active === 'Spot') ? 'white' : 'black' }}>
+                        <Link to="/spot" className={`nav-link ${(active === 'Spot') ? 'active' : ''}`} onClick={() => markActive('Spot')} style={{ color: (active === 'Spot') ? 'white' : 'black' }}>
                             <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#speedometer2"></use></svg>
                             Spot
-                        </a>
+                        </Link>
                     </li>
                 </ul>
                 <hr />

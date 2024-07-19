@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Blurb from './BlurbsItem'
+import Blurb from '../components/BlurbsItem'
 import { useDispatch, useSelector } from 'react-redux'
 import { blurbsSliceAction } from '../store/Blurbs'
 
