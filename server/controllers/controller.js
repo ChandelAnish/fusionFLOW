@@ -9,7 +9,7 @@ const testing = (req, res) => {
 const signup = async (req, res) => {
   try {
     const newUser = await user.create(req.body);
-    res.status(200).json(newUser);
+    res.status(200).json({signup:true,newUser});
   } catch (error) {
     console.log(error);
     res.send(500).json({ msg: "some error occurred" });

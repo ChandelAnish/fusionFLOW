@@ -15,16 +15,19 @@ export default function SignUp() {
 
     const response = await signup(userDetails)
     console.log(response)
+    if (response.signup) {
+      window.open('/signin', '_parent')
+    }
   }
 
   const signup = async (userDetails) => {
     try {
-      const response = await fetch('http://localhost:5000/signup',{
-        method:'POST',
-        headers:{
-          'Content-type':'application/json'
+      const response = await fetch('http://localhost:5000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
         },
-        body:JSON.stringify(userDetails)
+        body: JSON.stringify(userDetails)
       })
       const data = await response.json()
       return data
