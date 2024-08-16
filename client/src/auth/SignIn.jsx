@@ -1,6 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function SignIn() {
+
+  const [warningMsg, setwarningMsg] = useState('');
+
+  const handelFormSubmit = async (e) => {
+    e.preventDefault()
+    setwarningMsg('');
+    const form = e.target
+
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const userDetails = { email, password }
+
+    const response = await signin(userDetails)
+    if (response.signin) {
+      window.open('/', '_parent')
+      console.log(response)
+    }
+    else {
+      setwarningMsg(response.msg)
+    }
+  }
+
+  const signin = async (userDetails) => {
+    try {
+      const response = await fetch('http://localhost:5000/signin', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(userDetails)
+      })
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <div className="d-flex align-items-center py-4 bg-body-tertiary" style={{ height: '100vh' }}>
@@ -91,8 +130,11 @@ export default function SignIn() {
           </ul>
         </div>
 
-        <main className="form-signin m-auto rounded-4" style={{ width: "20rem", backgroundColor: "white", padding:"25px"}}>
-          <form>
+        <main className="form-signin m-auto rounded-4" style={{ width: "20rem", backgroundColor: "white", padding: "25px" }}>
+
+
+          {/* form */}
+          <form onSubmit={handelFormSubmit}>
             <h1 className="h3 mb-3 fw-normal">Welcome back !</h1>
 
             <div className="form-floating mb-2">
@@ -101,17 +143,26 @@ export default function SignIn() {
                 className="form-control"
                 id="floatingInput"
                 placeholder="name@example.com"
+                name="email"
               />
               <label htmlFor="floatingInput">Email address</label>
             </div>
+
             <div className="form-floating">
               <input
                 type="password"
                 className="form-control"
                 id="floatingPassword"
                 placeholder="Password"
+                name="password"
               />
               <label htmlFor="floatingPassword">Password</label>
+            </div>
+
+            {/* warning message */}
+            <div className="text-danger m-2" style={{ height: '24px', textAlign: "center" }}>
+              {warningMsg} &nbsp;
+              {(warningMsg==="User not exists") && <a href="/signup">Sign-up</a>}
             </div>
 
             <div className="form-check text-start my-3">

@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function SignUp() {
 
+  const [warningMsg,setwarningMsg] =useState('');
+
   const handelFormSubmit = async (e) => {
     e.preventDefault()
+    setwarningMsg('');
     const form = e.target
 
     const username = form.username.value;
     const email = form.email.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
+    if(password!=confirmPassword){
+      setwarningMsg('Passwords do not match');
+      return;
+    }
 
     const userDetails = { username, email, password, confirmPassword }
 
@@ -17,6 +24,9 @@ export default function SignUp() {
     console.log(response)
     if (response.signup) {
       window.open('/signin', '_parent')
+    }
+    else{
+      setwarningMsg(response.msg)
     }
   }
 
@@ -172,6 +182,11 @@ export default function SignUp() {
                 name="confirmPassword"
               />
               <label htmlFor="confirmPassword">Confirm Password</label>
+            </div>
+
+            {/* warning message */}
+            <div className="text-danger m-2" style={{height:'24px',textAlign:"center"}}>
+              {warningMsg}
             </div>
 
             <div className="form-check text-start my-3">
