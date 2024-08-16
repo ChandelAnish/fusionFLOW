@@ -1,14 +1,22 @@
 require("dotenv").config();
 const express = require("express");
+const app = express();
 const cors = require("cors");
 const router = require("./router/router");
 const connectDB = require("./db/connectDB");
+const cookieParser = require("cookie-parser");
 
-const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials:true
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use("/", router);
 
@@ -20,7 +28,7 @@ const start = async () => {
       console.log("Server listening at PORT and connected to DB", port);
     });
   } catch (error) {
-    console.log("error occurred : ",error);
+    console.log("error occurred : ", error);
   }
 };
 start();

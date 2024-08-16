@@ -12,8 +12,14 @@ export default function Blurbs() {
     useEffect(() => {
         const addInitialBlurbs = async () => {
             try {
-                const response = await fetch("http://localhost:5000/blurb");
+                const response = await fetch("http://localhost:5000/blurb",{
+                    credentials:"include"
+                });
                 const initialBlurbs = await response.json();
+                if(initialBlurbs.signin===false)
+                {
+                    window.open('/signin', '_parent')
+                }
                 dispatch(blurbsSliceAction.addInitialBlurbs(initialBlurbs))
             } catch (error) {
                 console.log("error occurred : ", error)

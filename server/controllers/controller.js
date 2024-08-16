@@ -1,3 +1,4 @@
+const { setUser } = require("../jwt/jwt");
 const blurb = require("../model/blurbs");
 const user = require("../model/users");
 
@@ -52,9 +53,20 @@ const signin = async (req, res) => {
     if (!userDetails) {
       return res.status(400).json({ signin: false, msg: "User not exists" });
     } else {
-      console.log(userDetails);
+      // console.log(userDetails);
       if (password === userDetails.password) {
-        return res.status(200).json({ signin: true, userDetails });
+
+        const token = setUser(userDetails.username,email,password)
+        // console.log(token)
+
+        res.cookie('fusionFLOW_Token', token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'None',
+          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      });
+
+        return res.status(200).json({ signin: true, userDetails,token });
       }
       else{
         return res.status(401).json({ signin: false, msg: "Incorrect email or password" });
@@ -78,6 +90,7 @@ const postBlurb = async (req, res) => {
 
 const getBlurbs = async (req, res) => {
   try {
+    console.log(req.userDetails);
     const allBlurb = await blurb.find({});
     res.status(200).json(allBlurb);
   } catch (error) {

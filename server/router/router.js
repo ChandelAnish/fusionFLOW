@@ -1,4 +1,5 @@
 const express = require("express");
+const loggedInUserOnly = require("../middleware/auth");
 const router = express.Router();
 const {
   testing,
@@ -17,6 +18,6 @@ router.route("/signup").post(signup);
 router.route("/signin").post(signin);
 
 //post blurb
-router.route("/blurb").post(postBlurb).get(getBlurbs);
+router.route("/blurb").post(loggedInUserOnly,postBlurb).get(loggedInUserOnly,getBlurbs);
 
 module.exports = router;

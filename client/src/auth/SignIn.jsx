@@ -31,6 +31,7 @@ export default function SignIn() {
         headers: {
           'Content-type': 'application/json'
         },
+        credentials:"include",
         body: JSON.stringify(userDetails)
       })
       const data = await response.json()
