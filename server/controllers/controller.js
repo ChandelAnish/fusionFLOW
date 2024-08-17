@@ -78,6 +78,16 @@ const signin = async (req, res) => {
   }
 };
 
+const getAllUsers = async(req,res)=>{
+  try {
+    const allUsers = await user.find({});
+    res.status(200).json(allUsers);
+  } catch (error) {
+    console.log(error);
+    res.send(500).json({ msg: "some error occurred" });
+  }
+}
+
 const postBlurb = async (req, res) => {
   try {
     const newBlurb = await blurb.create(req.body);
@@ -90,7 +100,7 @@ const postBlurb = async (req, res) => {
 
 const getBlurbs = async (req, res) => {
   try {
-    console.log(req.userDetails);
+    // console.log(req.userDetails);
     const allBlurb = await blurb.find({});
     res.status(200).json(allBlurb);
   } catch (error) {
@@ -99,4 +109,4 @@ const getBlurbs = async (req, res) => {
   }
 };
 
-module.exports = { testing, postBlurb, getBlurbs, signup, signin };
+module.exports = { testing, postBlurb, getBlurbs, signup, signin ,getAllUsers};

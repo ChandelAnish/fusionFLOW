@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaUserCircle, FaCommentDots, FaEllipsisV } from 'react-icons/fa';
+import store from '../../store';
+import { palsSliceAction } from '../../store/Pals';
+import Pal from './Pal';
 
-const Sidebar = () => {
+const Sidebar = ({startChat}) => {
+
+    const pals = useSelector(store => store.pals);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const addInitialPals = async () => {
+            try {
+                const response = await fetch("http://localhost:5000/users", {
+                    credentials: "include"
+                });
+                const initialPals = await response.json();
+                if (initialPals.signin === false) {
+                    window.open('/signin', '_parent')
+                    return;
+                }
+                dispatch(palsSliceAction.addInitialPals(initialPals))
+            } catch (error) {
+                console.log("error occurred : ", error)
+            }
+        }
+        addInitialPals()
+    }, [])
+
     return (
         <div className="d-flex flex-column" style={{ width: '30%', borderRight: '1px solid #e6e6e6' }}>
             <div className="d-flex justify-content-between p-2 border-bottom">
@@ -18,35 +45,7 @@ const Sidebar = () => {
             </div>
             <div className="flex-grow-1 overflow-auto">
 
-                <div className="d-flex p-2 align-items-center" style={{ cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'} onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}>
-                    <div>
-                        <FaUserCircle size="40" />
-                    </div>
-                    <div className="ms-2">
-                        <div className="fw-bold">GDSC CUSAT Community</div>
-                        <div style={{ color: '#888' }}>+91 75948 06809 changed their profile photo</div>
-                    </div>
-                </div>
-
-                <div className="d-flex p-2 align-items-center" style={{ cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'} onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}>
-                    <div>
-                        <FaUserCircle size="40" />
-                    </div>
-                    <div className="ms-2">
-                        <div className="fw-bold">GDSC CUSAT Community</div>
-                        <div style={{ color: '#888' }}>+91 75948 06809 changed their profile photo</div>
-                    </div>
-                </div>
-
-                <div className="d-flex p-2 align-items-center" style={{ cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f5f5f5'} onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}>
-                    <div>
-                        <FaUserCircle size="40" />
-                    </div>
-                    <div className="ms-2">
-                        <div className="fw-bold">GDSC CUSAT Community</div>
-                        <div style={{ color: '#888' }}>+91 75948 06809 changed their profile photo</div>
-                    </div>
-                </div>
+                {pals.map((item)=><Pal reciver={item.username} key={item._id} startChat={startChat}/>)}
 
             </div>
         </div>

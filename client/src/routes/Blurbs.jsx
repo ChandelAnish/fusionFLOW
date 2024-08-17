@@ -19,6 +19,7 @@ export default function Blurbs() {
                 if(initialBlurbs.signin===false)
                 {
                     window.open('/signin', '_parent')
+                    return;
                 }
                 dispatch(blurbsSliceAction.addInitialBlurbs(initialBlurbs))
             } catch (error) {

@@ -4,8 +4,9 @@ import { chatsSliceAction } from '../../store/Chats';
 import Message from './Message';
 import './Chat.css';
 import store from '../../store';
+import Welcome from './Welcome';
 
-const ChatWindow = () => {
+const ChatWindow = ({reciver}) => {
 
     const inputMsg = useRef();
     const displayMsg = useRef();
@@ -52,7 +53,7 @@ const ChatWindow = () => {
     return (
         <div className="container d-flex flex-column chat-container">
             <div className="p-3 border-bottom chat-header">
-                <h5 className="mb-0">Chat Name</h5>
+                <h5 className="mb-0">{reciver}</h5>
             </div>
             <div className="flex-grow-1 p-3 overflow-auto chat-messages" ref={displayMsg}>
 
@@ -62,7 +63,7 @@ const ChatWindow = () => {
                         <div className="text-end text-muted timestamp">Yesterday, 13:34</div>
                     </div>
                 </div> */}
-                {chats.map((item) => <Message chat={item} key={item.id} />)}
+                {(reciver)?chats.map((item) => <Message chat={item} key={item.id} />):<Welcome/>}
 
             </div>
 
