@@ -5,7 +5,6 @@ const loggedInUserOnly = (req, res, next) => {
     const token = req.cookies.fusionFLOW_Token;
     if (!token) {
         res.status(498).json({ signin: false, msg: "no token found" });
-        console.log("hello")
         return;
     }
     // console.log(token);

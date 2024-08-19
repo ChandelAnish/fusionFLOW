@@ -4,13 +4,40 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import SideBar from './components/SideBar'
 import Footer from './components/Footer'
 import SignIn from './auth/SignIn'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLoaderData } from 'react-router-dom'
+
+import { useDispatch } from 'react-redux';
+import { userDetailsSliceAction } from './store/UserDetails';
+import { useEffect } from 'react'
 
 function App() {
 
+  const dispatch = useDispatch()
+
+  const userDetails = useLoaderData()
+  dispatch(userDetailsSliceAction.getUserDetails(userDetails))
+  // useEffect(() => {
+  //   const getLoggedUserDetails = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:5000/loggedUserDetails", {
+  //         credentials: "include"
+  //       });
+  //       const userDetails = await response.json();
+  //       if (userDetails.signin === false) {
+  //         window.open('/signin', '_parent')
+  //         return;
+  //       }
+  //       delete userDetails.iat;
+  //       dispatch(userDetailsSliceAction.getUserDetails(userDetails))
+  //     } catch (error) {
+  //       console.log("error occurred : ", error)
+  //     }
+  //   }
+  //   getLoggedUserDetails()
+  // },[])
+
   return (
     <>
-      {/* <SignIn /> */}
       <div className="app-container d-flex">
         <SideBar />
         <div className="content w-100">
@@ -23,3 +50,22 @@ function App() {
 }
 
 export default App
+
+//loader function
+export const getLoggedUserDetails = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/loggedUserDetails", {
+      credentials: "include"
+    });
+    const userDetails = await response.json();
+    if (userDetails.signin === false) {
+      window.open('/signin', '_parent')
+      return {};
+    }
+    delete userDetails.iat;
+    return userDetails;
+  } catch (error) {
+    console.log("error occurred : ", error)
+    return {};
+  }
+}

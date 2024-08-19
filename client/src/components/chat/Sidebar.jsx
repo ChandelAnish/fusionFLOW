@@ -43,11 +43,15 @@ const Sidebar = ({startChat}) => {
             <div className="p-2">
                 <input type="text" className="form-control" placeholder="Search or start a new chat" />
             </div>
+
+
             <div className="flex-grow-1 overflow-auto">
 
-                {pals.map((item)=><Pal reciver={item.username} key={item._id} startChat={startChat}/>)}
+                {pals.map((item)=><Pal receiver={item.username} key={item._id} startChat={startChat} />)}
 
             </div>
+
+
         </div>
     );
 };

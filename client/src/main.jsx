@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import App, { getLoggedUserDetails } from './App.jsx'
 import { Provider } from 'react-redux'
 import store from './store/index.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -19,6 +19,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    loader:getLoggedUserDetails,
     children: [
       {path: '/', element: <Blurbs />},
       {path: '/chat', element: <Chat />},
@@ -31,10 +32,10 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
     <Provider store={store}>
       <RouterProvider router={router}>
         </RouterProvider>
     </Provider>
-  </React.StrictMode>
+
 )

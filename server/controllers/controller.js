@@ -1,5 +1,6 @@
 const { setUser } = require("../jwt/jwt");
 const blurb = require("../model/blurbs");
+const chats = require("../model/chats");
 const user = require("../model/users");
 
 const testing = (req, res) => {
@@ -78,9 +79,24 @@ const signin = async (req, res) => {
   }
 };
 
+//get logged User Details
+const getloggedUserDetails = async(req,res)=>{
+  try {
+    // console.log(req.userDetails)
+    res.status(200).json(req.userDetails );
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "some error occurred" });
+  }
+}
+
+//get all users
 const getAllUsers = async(req,res)=>{
   try {
-    const allUsers = await user.find({});
+    let allUsers = await user.find({});
+    allUsers = allUsers.filter((item)=>{
+      return (item.username!=req.userDetails.username)
+    })
     res.status(200).json(allUsers);
   } catch (error) {
     console.log(error);
@@ -109,4 +125,51 @@ const getBlurbs = async (req, res) => {
   }
 };
 
-module.exports = { testing, postBlurb, getBlurbs, signup, signin ,getAllUsers};
+
+//patch chat
+const patchChat = async (req, res) => {
+  try {
+    // findOneAndUpdate(filter,update data,options)
+    const allChats = await chats.findOneAndUpdate(
+      {user1:req.body.sender,user2:req.body.receiver},
+      { $push: { messages: req.body } },//$push operator in MongoDB is used to add a specified value to an array field. If the array field does not exist, $push will create the field and add the value to the array.
+      //This is the MongoDB update operator that adds an item to an array field. It takes an object where the keys are the names of the array fields you want to update and the values are the items you want to add to those arrays.
+      { new: true, useFindAndModify: false }//Return the updated document, avoid deprecation warning.
+    );
+    
+    if(!allChats){
+      const allChats = await chats.findOneAndUpdate(
+        {user1:req.body.receiver,user2:req.body.sender},
+        { $push: { messages: req.body } },
+        { new: true, useFindAndModify: false }
+      );
+    }
+    res.status(200).json(allChats);
+  } catch (error) {
+    console.log(error);
+    res.send(500).json({ msg: "some error occurred" });
+  }
+};
+
+//get all chats
+const getAllChats = async (req, res) => {
+  try {
+    // console.log(req.params);
+    let allChats = await chats.findOne(req.params);
+    if(!allChats){
+      allChats = await chats.findOne({user1:req.params.user2,user2:req.params.user1});
+    }
+    if(allChats){
+      return res.status(200).json(allChats);
+    }
+    else{
+        const newConversation = await chats.create({...req.params,messages:[]});
+        return res.status(200).json(newConversation);
+    }
+  } catch (error) {
+    console.log(error);
+    res.send(500).json({ msg: "some error occurred" });
+  }
+};
+
+module.exports = { testing, postBlurb, getBlurbs, signup, signin ,getAllUsers,getloggedUserDetails,getAllChats,patchChat};
