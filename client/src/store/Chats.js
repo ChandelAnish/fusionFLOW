@@ -26,34 +26,34 @@ const chatsSlice = createSlice({
 
     sendChat: (store, action) => {
 
-      const patchMessage = async (chat) => {
-        try {
-          const response = await fetch(
-            "http://localhost:5000/chats",
-            {
-              method: 'PATCH',
-              headers: {
-                'Content-type': 'application/json'
-              },
-              credentials:"include",
-              body: JSON.stringify(chat)
-            }
-          );
-          const data = await response.json();
+      // const patchMessage = async (chat) => {
+      //   try {
+      //     const response = await fetch(
+      //       "http://localhost:5000/chats",
+      //       {
+      //         method: 'PATCH',
+      //         headers: {
+      //           'Content-type': 'application/json'
+      //         },
+      //         credentials:"include",
+      //         body: JSON.stringify(chat)
+      //       }
+      //     );
+      //     const data = await response.json();
 
-          // for logged out user
-          if (data.signin) {
-            window.open("/signin", "_parent");
-            return {};
-          }
+      //     // for logged out user
+      //     if (data.signin) {
+      //       window.open("/signin", "_parent");
+      //       return {};
+      //     }
 
-          // console.log(data);
-        } catch (error) {
-          console.log("error occurred : ", error);
-          return {};
-        }
-      };
-      patchMessage(action.payload)
+      //     // console.log(data);
+      //   } catch (error) {
+      //     console.log("error occurred : ", error);
+      //     return {};
+      //   }
+      // };
+      // patchMessage(action.payload)
 
       return [...store, action.payload];
     },

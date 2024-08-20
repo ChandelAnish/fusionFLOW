@@ -1,39 +1,22 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Blurb from '../components/BlurbsItem'
-import { useDispatch, useSelector } from 'react-redux'
-import { blurbsSliceAction } from '../store/Blurbs'
+import { useSelector } from 'react-redux'
+import useAddInitialBlurbs from '../hooks/useAddInitialBlurbs'
+import LoadingSpinners from '../components/LoadingSpinners'
+import ErrorAlert from '../components/ErrorAlert'
 
 
 export default function Blurbs() {
 
     const blurbs = useSelector(store => store.blurbs)
-    const dispatch = useDispatch()
 
-    useEffect(() => {
-        const addInitialBlurbs = async () => {
-            try {
-                const response = await fetch("http://localhost:5000/blurb",{
-                    credentials:"include"
-                });
-                const initialBlurbs = await response.json();
-                if(initialBlurbs.signin===false)
-                {
-                    window.open('/signin', '_parent')
-                    return;
-                }
-                dispatch(blurbsSliceAction.addInitialBlurbs(initialBlurbs))
-            } catch (error) {
-                console.log("error occurred : ", error)
-            }
-        }
-        addInitialBlurbs()
-    }, [])
+    const [isLoading,error] = useAddInitialBlurbs();
 
 
     return (
         <>
             <div className="container overflow-auto" style={{ maxHeight: "88vh" }}>
-                {blurbs.map((item) => {
+                {(isLoading)?<LoadingSpinners/>:(error)? <ErrorAlert error={error} /> :blurbs.map((item) => {
                     return <Blurb key={item._id} blurb={item} />
                 })}
             </div>

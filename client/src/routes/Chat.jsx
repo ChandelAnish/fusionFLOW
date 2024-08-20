@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Sidebar from '../components/chat/Sidebar';
 import ChatWindow from '../components/chat/ChatWindow';
 import { useDispatch, useSelector } from 'react-redux';
-import {io} from "socket.io-client";
 import { chatsSliceAction } from '../store/Chats';
+import useSocketConnect from '../hooks/useSocketConnect';
 
 export default function Chat() {
 
@@ -12,27 +12,8 @@ export default function Chat() {
   const userDetails = useSelector(store=>store.userDetails)
   const [receiver,setreceiver] = useState(null);
 
-  const [socket,setSocket]=useState('')
-
-  //socket.io
-  useEffect(()=>{
-    console.log("useEffect running ",userDetails)
-    const socket =io("http://localhost:5000",{
-      query:{
-        username:userDetails.username
-      }
-    });
-
-    setSocket(socket);
-
-    socket.on("connect",()=>{
-      console.log("connected ",socket.id)
-    })
-
-    return ()=>{
-      socket.disconnect();
-    }
-  },[])
+  //connect to socket server
+  const socket = useSocketConnect()
 
   const loadOrStartConversation = async(user1,user2)=>{
     try {

@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { chatsSliceAction } from '../../store/Chats';
 import Message from './Message';
 import './Chat.css';
-import store from '../../store';
 import Welcome from './Welcome';
 import { v4 as uuid } from 'uuid';
+import { FaVideo } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import usePatchChatArray from '../../hooks/usePatchChatArray';
 
 const ChatWindow = ({ sender, receiver, socket}) => {
+
+    const mutation = usePatchChatArray()//
 
     const inputMsg = useRef();
     const displayMsg = useRef();
@@ -24,6 +28,13 @@ const ChatWindow = ({ sender, receiver, socket}) => {
                 // console.log(msg);
                 dispatch(chatsSliceAction.receiveChat(msg));
             })
+        }
+        return ()=>{
+            if (socket) {
+                socket.removeListener("received_message", () => {
+                    console.log("turned off received_message event");
+                });
+            }
         }
     }, [socket])
 
@@ -44,7 +55,9 @@ const ChatWindow = ({ sender, receiver, socket}) => {
                 time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
             }
             
-            dispatch(chatsSliceAction.sendChat(message))
+            //patching this chat into the message array in DB
+            mutation.mutate(message);
+            // dispatch(chatsSliceAction.sendChat(message))
             await socket.emit("send_message", message)
             inputMsg.current.value = "";
         }
@@ -57,7 +70,7 @@ const ChatWindow = ({ sender, receiver, socket}) => {
     return (
         <div className="container d-flex flex-column chat-container">
             <div className="p-3 border-bottom chat-header">
-                <h5 className="mb-0">{receiver}</h5>
+                <h5 className="mb-0 clearfix">{receiver} <Link to="/videocall"><FaVideo className='fs-4 float-end' style={{color:"#803bbf",cursor:"pointer"}} /></Link></h5>
             </div>
             <div className="flex-grow-1 p-3 overflow-auto chat-messages" ref={displayMsg}>
 
