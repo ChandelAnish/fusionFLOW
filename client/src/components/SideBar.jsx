@@ -32,12 +32,6 @@ export default function SideBar() {
                             Chat
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link to="/videocall" className={`nav-link ${(active === 'VideoCall') ? 'active' : ''}`} aria-current="page" onClick={() => markActive('VideoCall')} style={{ color: (active != 'VideoCall') ? 'black' : 'white' }}>
-                            <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#home"></use></svg>
-                            Video Call
-                        </Link>
-                    </li>
                     <li>
                         <Link to="/expenses" className={`nav-link ${(active === 'Expenses') ? 'active' : ''}`} onClick={() => markActive('Expenses')} style={{ color: (active === 'Expenses') ? 'white' : 'black' }}>
                             <svg className="bi pe-none me-2" width="16" height="16"><use xlinkHref="#speedometer2"></use></svg>
