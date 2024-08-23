@@ -20,10 +20,10 @@ export default function usePatchChatArray() {
     const data = await response.json();
 
     // for logged out user
-    if (data.signin) {
-      window.open("/signin", "_parent");
-      return {};
-    }
+    // if (data.signin) {
+    //   window.open("/signin", "_parent");
+    //   return {};
+    // }
     return data;
   };
 

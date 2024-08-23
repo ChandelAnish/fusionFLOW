@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Blurbs /> },
       { path: '/chat', element: <Chat /> },
-      { path: '/videocall', element: <VideoCall /> },
+      // { path: '/videocall', element: <VideoCall /> },
       { path: '/expenses', element: <Expenses /> },
       { path: '/email', element: <Email /> },
       { path: '/spot', element: <Spot /> }

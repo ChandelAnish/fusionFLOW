@@ -1,0 +1,61 @@
+/* call button */
+.callbtn{
+    color: rgb(215, 94, 253);
+    font-size: 55px;
+    position:absolute;
+    left: 50rem;
+    bottom:85px;
+}
+.callbtn:hover{
+    cursor: pointer;
+    color: rgb(218, 142, 241);
+    transform: scale(1.2);
+    transition: all .4s;
+}
+.callbtn:active{
+    color: rgb(215, 94, 253);
+    transform: scale(1);
+    transition: all .4s;
+}
+
+
+/* incoming call button */
+.incomingCall{
+    color: rgb(153, 255, 0);
+    font-size: 55px;
+    position:absolute;
+    left: 60rem;
+    bottom:85px
+}
+.incomingCall:hover{
+    cursor: pointer;
+    color: rgb(140, 233, 0);
+    transform: scale(1.2);
+    transition: all .4s;
+}
+.incomingCall:active{
+    color: rgb(153, 255, 0);
+    transform: scale(1);
+    transition: all .4s;
+}
+
+
+/* end call button */
+.endCall{
+    color: rgb(255, 0, 0);
+    font-size: 55px;
+    position:absolute;
+    left: 60rem;
+    bottom:85px
+}
+.endCall:hover{
+    cursor: pointer;
+    color: rgb(255, 82, 82);
+    transition: all .4s;
+    transform: scale(1.2);
+}
+.endCall:active{
+    color: rgb(255, 0, 0);
+    transform: scale(1);
+    transition: all .4s;
+}

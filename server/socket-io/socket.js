@@ -16,6 +16,9 @@ const socketConnection = (server) => {
     console.log(username, "connected with ID : ", socket.id);
 
     onlineUsersMap[username] = socket.id;
+    console.log(onlineUsersMap)
+    io.emit("online-users",onlineUsersMap)
+
 
     socket.on("send_message", (msg) => {
       if (onlineUsersMap[msg.receiver]) {
@@ -23,9 +26,46 @@ const socketConnection = (server) => {
       }
     });
 
+
+    // video call
+
+    socket.on('offer', (data) => {
+      console.log("offer by ",data.caller," to ",data.receiver)
+      io.to(onlineUsersMap[data.receiver]).emit('offer', data);
+    });
+    
+    socket.on('answer', (data) => {
+      console.log("answer by ",data.caller," to ",data.receiver)
+      io.to(onlineUsersMap[data.receiver]).emit('answer', data);
+    });
+    
+    socket.on('candidate', (data) => {
+      // console.log("candidate ",data.username)
+      io.to(onlineUsersMap[data.receiver]).emit('candidate', data);
+    });  
+
+    socket.on('end-call-btn', (data) => {
+      io.to(onlineUsersMap[data.receiver]).emit('end-call-btn', data);
+    });  
+
+    socket.on('call-ended', (data) => {
+      io.to(onlineUsersMap[data.caller]).emit('call-ended', data);
+      io.to(onlineUsersMap[data.receiver]).emit('call-ended', data);
+    });  
+
+    // video call end
+
     socket.on("disconnect", () => {
+      //update onlineUserMap
+      for(key in onlineUsersMap){
+        if(onlineUsersMap[key] === socket.id){
+          delete onlineUsersMap[key];
+          io.emit("online-users",onlineUsersMap)
+          break;
+        }
+      }
       console.log(`${socket.id} user disconnected`);
-      // Optionally, you can remove the user from onlineUsersMap on disconnect
+      console.log(onlineUsersMap);
     });
   });
 };

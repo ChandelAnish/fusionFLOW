@@ -4,16 +4,21 @@ import ChatWindow from '../components/chat/ChatWindow';
 import { useDispatch, useSelector } from 'react-redux';
 import { chatsSliceAction } from '../store/Chats';
 import useSocketConnect from '../hooks/useSocketConnect';
+import { receiverSliceAction } from '../store/Reciever';
+import VideoCall from './VideoCall';
 
 export default function Chat() {
+
+  const [videoCall,setVideoCall]=useState(false)
 
   const dispatch = useDispatch()
 
   const userDetails = useSelector(store=>store.userDetails)
-  const [receiver,setreceiver] = useState(null);
+  // const [receiver,setReceiver] = useState(null);
+  const receiver = useSelector(store=>store.receiver)
 
   //connect to socket server
-  const socket = useSocketConnect()
+  const [socket,onlineUsers] = useSocketConnect()
 
   const loadOrStartConversation = async(user1,user2)=>{
     try {
@@ -36,16 +41,19 @@ export default function Chat() {
   } 
 
   const startChat =async(rec)=>{
-    setreceiver(rec)
+    dispatch(receiverSliceAction.setReceiver(rec))
+    // setReceiver(rec)
     await loadOrStartConversation(userDetails.username,rec)
     // console.log(rec)
+    // console.log(onlineUsers)
   }
 
 
   return (
     <div className="d-flex" style={{ height: '87vh', width: '100%' }}>
-      <Sidebar startChat={startChat} />
-      <ChatWindow sender={userDetails.username} receiver={receiver} socket={socket} />
+      {(!videoCall) && <Sidebar startChat={startChat} onlineUsers={onlineUsers} />}
+      {(!videoCall) && <ChatWindow sender={userDetails.username} socket={socket} setVideoCall={setVideoCall} />}
+      {(videoCall) && <VideoCall setVideoCall={setVideoCall} />}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { FaUserCircle, FaCommentDots, FaEllipsisV } from 'react-icons/fa';
 import Pal from './Pal';
 import useAddInitialPals from '../../hooks/useAddInitialPals';
 
-const Sidebar = ({startChat}) => {
+const Sidebar = ({ startChat, onlineUsers }) => {
 
     const pals = useSelector(store => store.pals);
 
@@ -28,7 +28,12 @@ const Sidebar = ({startChat}) => {
 
             <div className="flex-grow-1 overflow-auto">
 
-                {pals.map((item)=><Pal receiver={item.username} key={item._id} startChat={startChat} />)}
+                {pals.map((item) => {
+                    let online = false;
+                    if (onlineUsers.hasOwnProperty(`${item.username}`)) online = true;
+                    return <Pal receiver={item.username} key={item._id} startChat={startChat} online={online} />
+                }
+                )}
 
             </div>
 

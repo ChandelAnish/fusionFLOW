@@ -9,7 +9,7 @@ import { FaVideo } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import usePatchChatArray from '../../hooks/usePatchChatArray';
 
-const ChatWindow = ({ sender, receiver, socket}) => {
+const ChatWindow = ({ sender,socket,setVideoCall}) => {
 
     const mutation = usePatchChatArray()//
 
@@ -17,7 +17,12 @@ const ChatWindow = ({ sender, receiver, socket}) => {
     const displayMsg = useRef();
 
     const chats = useSelector(store => store.chats)
+    const receiver = useSelector(store=>store.receiver)
     const dispatch = useDispatch();
+
+    const displayVideo=()=>{
+        setVideoCall(true)
+    }
 
     //receiving chat
     useEffect(() => {
@@ -70,7 +75,8 @@ const ChatWindow = ({ sender, receiver, socket}) => {
     return (
         <div className="container d-flex flex-column chat-container">
             <div className="p-3 border-bottom chat-header">
-                <h5 className="mb-0 clearfix">{receiver} <Link to="/videocall"><FaVideo className='fs-4 float-end' style={{color:"#803bbf",cursor:"pointer"}} /></Link></h5>
+                {/* <h5 className="mb-0 clearfix">{receiver} <Link to="/videocall"><FaVideo className='fs-4 float-end' style={{color:"#803bbf",cursor:"pointer"}} /></Link></h5> */}
+                <h5 className="mb-0 clearfix">{receiver} {(receiver) && <FaVideo onClick={displayVideo} className='fs-4 float-end' style={{color:"#803bbf",cursor:"pointer"}} />}</h5>
             </div>
             <div className="flex-grow-1 p-3 overflow-auto chat-messages" ref={displayMsg}>
 
