@@ -12,7 +12,7 @@ const socketConnection = require('./socket-io/socket');
 app.use(
   cors({
     // origin: process.env.CLIENT_URL,
-    origin: [process.env.CLIENT_URL,process.env.SIGNIN_URL,process.env.SIGNUP_URL],
+    origin: [process.env.CLIENT_URL,'https://fusionflow-signin.onrender.com','https://fusionflow-signup.onrender.com'],
     credentials: true,
   })
 );
