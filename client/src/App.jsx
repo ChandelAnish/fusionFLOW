@@ -36,7 +36,7 @@ export const getLoggedUserDetails = async () => {
     });
     const userDetails = await response.json();
     if (userDetails.signin === false) {
-      window.open('/signin', '_parent')
+      window.open('https://fusionflow-signin.onrender.com', '_parent')
       return {};
     }
     delete userDetails.iat;
