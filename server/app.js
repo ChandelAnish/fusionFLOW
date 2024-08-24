@@ -11,7 +11,8 @@ const socketConnection = require('./socket-io/socket');
 // Middleware
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    // origin: process.env.CLIENT_URL,
+    origin: [process.env.CLIENT_URL,process.env.SIGNIN_URL,process.env.SIGNUP_URL],
     credentials: true,
   })
 );
