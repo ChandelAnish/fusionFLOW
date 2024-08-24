@@ -110,7 +110,7 @@
         const response = await signup(userDetails);
 
         if (response.signup) {
-          window.location.href = '/signin';
+          window.location.href = 'https://fusionflow-signin.onrender.com';
         } else {
           warningMsg.textContent = response.msg;
         }
