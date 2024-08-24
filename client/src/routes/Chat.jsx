@@ -28,7 +28,8 @@ export default function Chat() {
       let initialChats = await response.json();
       if(initialChats.signin===false)
       {
-          window.open('/signin', '_parent')
+          // window.open('/signin', '_parent')
+          window.open('https://fusionflow-signin.onrender.com', '_parent')
           return;
       }
       // console.log(initialChats)
