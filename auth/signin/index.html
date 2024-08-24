@@ -65,11 +65,12 @@
         const data = await response.json();
         
         if (data.signin) {
-          window.location.href = '/';
+          // window.location.href = '/';
+          window.location.href = 'https://fusionflow-asc.onrender.com';
         } else {
           warningMsg.textContent = data.msg;
           if (data.msg === "User not exists") {
-            warningMsg.innerHTML += ' <a href="/signup">Sign-up</a>';
+            warningMsg.innerHTML += ' <a href="https://fusionflow-signup.onrender.com">Sign-up</a>';
           }
         }
       } catch (error) {
