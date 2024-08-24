@@ -13,7 +13,7 @@ export default function useSocketConnect() {
 
   useEffect(() => {
     console.log("useEffect running ", userDetails);
-    const socket = io("http://localhost:5000", {
+    const socket = io(`${import.meta.env.VITE_SERVER_URL}`, {
       query: {
         username: userDetails.username,
       },

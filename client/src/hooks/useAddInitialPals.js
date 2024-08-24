@@ -10,7 +10,7 @@ export default function useAddInitialPals() {
     useEffect(() => {
         const addInitialPals = async () => {
             try {
-                const response = await fetch("http://localhost:5000/users", {
+                const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/users`, {
                     credentials: "include"
                 });
                 const initialPals = await response.json();

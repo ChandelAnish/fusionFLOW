@@ -26,7 +26,7 @@ export default function SignIn() {
 
   const signin = async (userDetails) => {
     try {
-      const response = await fetch('http://localhost:5000/signin', {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/signin`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'

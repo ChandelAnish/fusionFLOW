@@ -9,7 +9,7 @@ export default function usePatchChatArray() {
     const dispatch = useDispatch();
 
   const patchMessage = async (chat) => {
-    const response = await fetch("http://localhost:5000/chats", {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/chats`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",

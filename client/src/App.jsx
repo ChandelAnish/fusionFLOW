@@ -31,7 +31,7 @@ export default App
 //loader function
 export const getLoggedUserDetails = async () => {
   try {
-    const response = await fetch("http://localhost:5000/loggedUserDetails", {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/loggedUserDetails`, {
       credentials: "include"
     });
     const userDetails = await response.json();

@@ -9,7 +9,7 @@ const useAddInitialBlurbs = () => {
   // useEffect(() => {
   //     const addInitialBlurbs = async () => {
   //         try {
-  //             const response = await fetch("http://localhost:5000/blurb",{
+  //             const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/blurb`,{
   //                 credentials:"include"
   //             });
   //             const initialBlurbs = await response.json();
@@ -27,7 +27,7 @@ const useAddInitialBlurbs = () => {
   // }, [])
 
   const addInitialBlurbs = async () => {
-    const response = await fetch("http://localhost:5000/blurb", {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/blurb`, {
       credentials: "include",
     });
     const initialBlurbs = await response.json();

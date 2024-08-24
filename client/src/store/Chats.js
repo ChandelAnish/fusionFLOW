@@ -29,7 +29,7 @@ const chatsSlice = createSlice({
       // const patchMessage = async (chat) => {
       //   try {
       //     const response = await fetch(
-      //       "http://localhost:5000/chats",
+      //       `${import.meta.env.VITE_SERVER_URL}/chats`,
       //       {
       //         method: 'PATCH',
       //         headers: {

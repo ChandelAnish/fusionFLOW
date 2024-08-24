@@ -32,7 +32,7 @@ export default function SignUp() {
 
   const signup = async (userDetails) => {
     try {
-      const response = await fetch('http://localhost:5000/signup', {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/signup`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'

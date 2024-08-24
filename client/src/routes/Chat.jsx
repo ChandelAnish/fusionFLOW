@@ -22,7 +22,7 @@ export default function Chat() {
 
   const loadOrStartConversation = async(user1,user2)=>{
     try {
-      const response = await fetch(`http://localhost:5000/chats/${user1}/${user2}`,{
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/chats/${user1}/${user2}`,{
           credentials:"include"
       });
       let initialChats = await response.json();
