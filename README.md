@@ -1,10 +1,9 @@
-
 # 🌐 FusionFLOW - Social Connectivity & Productivity Hub 🚀
 
 Welcome to FusionFLOW, the ultimate platform that combines social connectivity with enhanced productivity. Whether you're staying in touch with friends or managing your daily tasks, FusionFLOW brings all essential features together in one seamless, easy-to-use web application.
 
 
-![Logo](https://drive.google.com/file/d/1YUvXiZwIn-bipZoX5aUgk3Eihlv4Zaa2/view?usp=sharing)
+![Logo](https://drive.google.com/uc?id=1YUvXiZwIn-bipZoX5aUgk3Eihlv4Zaa2)
 
 
 ## 🌐 Live Demo
