@@ -1,3 +1,4 @@
+
 # 🌐 FusionFLOW - Social Connectivity & Productivity Hub 🚀
 
 Welcome to FusionFLOW, the ultimate platform that combines social connectivity with enhanced productivity. Whether you're staying in touch with friends or managing your daily tasks, FusionFLOW brings all essential features together in one seamless, easy-to-use web application.
@@ -42,6 +43,7 @@ Easily track shared expenses with your contacts for hassle-free financial manage
 
 ![login](https://drive.google.com/uc?id=1j_-oOCLk_BVWsXZgsxAVgwYp4kPQCyGD)
 
+![signup](https://drive.google.com/uc?id=1vgn8w2FeHU-HoimR_4Ib1J5XI7kUXptn)
 
 ## Tech Stack
 
@@ -79,6 +81,7 @@ Follow these steps to set up the project locally:
 3. Configure Environment Variables for client side. Create a .env file in the client directory with the following details:
 ```bash
 VITE_SERVER_URL=http://localhost:5000
+# VITE_SERVER_URL=https://fusionflow-vm59.onrender.com
 ```
 
 - **Setup server**
@@ -94,6 +97,9 @@ PORT = 5000
 MONGO_URI = your-mongodb-uri
 SECRET_KEY = fusionFLOW_asc
 CLIENT_URL=http://localhost:5173
+# CLIENT_URL=https://fusionflow-asc.onrender.com
+# SIGNIN_URL=https://fusionflow-signin.onrender.com
+# SIGNUP_URL=https://fusionflow-signup.onrender.com
 ```
 
 6. Run the server:
