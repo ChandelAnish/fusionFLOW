@@ -67,7 +67,7 @@ Follow these steps to set up the project locally:
 
 1. Clone the repository:
 ```bash
-  npm clone https://github.com/ChandelAnish/hireHUB-website.git
+  https://github.com/ChandelAnish/fusionFLOW.git
   cd fusionFLOW
 ```
 
