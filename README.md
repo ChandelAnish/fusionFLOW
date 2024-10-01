@@ -34,14 +34,13 @@ Locate your friends and stay informed about their whereabouts in real time.
 Easily track shared expenses with your contacts for hassle-free financial management.
 ## 📸 Screenshots
 
-![blurbs](https://drive.google.com/file/d/1a26R7P6tGH8lpPlrn3pR4PGjzXY83P1F/view?usp=sharing)
+![blurbs](https://drive.google.com/uc?id=1a26R7P6tGH8lpPlrn3pR4PGjzXY83P1F)
 
+![chats](https://drive.google.com/uc?id=1d6eqzTNdCpGhPnE_QHcrPMt-TUHp8kn2)
 
-![chats](https://drive.google.com/file/d/1d6eqzTNdCpGhPnE_QHcrPMt-TUHp8kn2/view?usp=sharing)
+![video-call](https://drive.google.com/uc?id=1kIF5E-qrIhkPXyhYRhTgAhGiTiFfHp5f)
 
-![video-call](https://drive.google.com/file/d/1kIF5E-qrIhkPXyhYRhTgAhGiTiFfHp5f/view?usp=sharing)
-
-![login](https://drive.google.com/file/d/1j_-oOCLk_BVWsXZgsxAVgwYp4kPQCyGD/view?usp=sharing)
+![login](https://drive.google.com/uc?id=1j_-oOCLk_BVWsXZgsxAVgwYp4kPQCyGD)
 
 
 ## Tech Stack
