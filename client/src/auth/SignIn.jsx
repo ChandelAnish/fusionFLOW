@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { Eye, EyeOff } from "lucide-react"; // Import lucide-react icons
 
 export default function SignIn() {
-  const [warningMsg, setwarningMsg] = useState("");
+  const [warningMsg, setWarningMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State for toggling password visibility
 
-  const handelFormSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setwarningMsg("");
+    setWarningMsg("");
     const form = e.target;
 
     const email = form.email.value;
@@ -18,7 +20,7 @@ export default function SignIn() {
       window.open("/", "_parent");
       console.log(response);
     } else {
-      setwarningMsg(response.msg);
+      setWarningMsg(response.msg);
     }
   };
 
@@ -39,6 +41,12 @@ export default function SignIn() {
     }
   };
 
+  // Toggle password visibility
+  const togglePasswordVisibility = () => {
+    // setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <>
       <div className="d-flex align-items-center py-4 bg-light" style={{ height: "100vh" }}>
@@ -53,29 +61,19 @@ export default function SignIn() {
           }}
         >
           {/* form */}
-          <form onSubmit={handelFormSubmit}>
-            {/* <h1 className="h3 mb-4 fw-bold text-center">Welcome Back!</h1> */}
-
-
-            
+          <form onSubmit={handleFormSubmit}>
             <h1
-  className="h3 mb-4 fw-bold text-center"
-  style={{
-    fontSize: "2rem",  // Larger text size for more emphasis
-    background: "linear-gradient(90deg, #007bff, #00b4db)",  // Gradient effect for text
-    WebkitBackgroundClip: "text",  // Clip background to the text only
-    WebkitTextFillColor: "transparent",  // Makes the text appear transparent to show the gradient
-    textShadow: "1px 1px 5px rgba(0, 0, 0, 0.1)",  // Adds a soft shadow
-  }}
->
-  Welcome Back!
-</h1>
-
-
-
-
-
-            
+              className="h3 mb-4 fw-bold text-center"
+              style={{
+                fontSize: "2rem",
+                background: "linear-gradient(90deg, #007bff, #00b4db)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                textShadow: "1px 1px 5px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              Welcome Back!
+            </h1>
 
             <div className="form-floating mb-3">
               <input
@@ -105,9 +103,9 @@ export default function SignIn() {
               </label>
             </div>
 
-            <div className="form-floating mb-3">
+            <div className="form-floating mb-3 position-relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle between password and text
                 className="form-control rounded-pill"
                 id="floatingPassword"
                 placeholder="Password"
@@ -131,11 +129,25 @@ export default function SignIn() {
               <label htmlFor="floatingPassword" className="ms-3">
                 Password
               </label>
+              {/* Eye icon for password visibility */}
+              <i
+                onClick={togglePasswordVisibility}
+                style={{
+                  position: "absolute",
+                  right: "15px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+              >
+                {/* {showPassword ? <EyeOff size={20} /> : <Eye size={20} />} */}
+                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+              </i>
             </div>
 
             {/* warning message */}
             <div
-              className="text-danger mb-4"
+              className="text-danger mb-0"
               style={{ height: "24px", textAlign: "center", fontSize: "0.9rem" }}
             >
               {warningMsg} &nbsp;

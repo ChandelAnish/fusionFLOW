@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { Eye, EyeOff } from "lucide-react"; // Import lucide-react icons
 
 export default function SignUp() {
-  const [warningMsg, setwarningMsg] = useState("");
+  const [warningMsg, setWarningMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handelFormSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setwarningMsg("");
+    setWarningMsg("");
     const form = e.target;
 
     const username = form.username.value;
@@ -13,7 +16,7 @@ export default function SignUp() {
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
     if (password !== confirmPassword) {
-      setwarningMsg("Passwords do not match");
+      setWarningMsg("Passwords do not match");
       return;
     }
 
@@ -24,7 +27,7 @@ export default function SignUp() {
     if (response.signup) {
       window.open("/signin", "_parent");
     } else {
-      setwarningMsg(response.msg);
+      setWarningMsg(response.msg);
     }
   };
 
@@ -45,6 +48,15 @@ export default function SignUp() {
     }
   };
 
+  // Toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   return (
     <>
       <div className="d-flex align-items-center py-4 bg-light" style={{ height: "100vh" }}>
@@ -58,36 +70,19 @@ export default function SignUp() {
             boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <form onSubmit={handelFormSubmit}>
-            {/* <h1 className="h3 mb-4 fw-bold text-center">Sign Up to fusionFLOW</h1> */}
-
-
+          <form onSubmit={handleFormSubmit}>
             <h1
-  className="h3 mb-4 fw-bold text-center"
-  style={{
-    fontSize: "2rem",  // Larger text size for more emphasis
-    background: "linear-gradient(90deg, #007bff, #00b4db)",  // Gradient effect for text
-    WebkitBackgroundClip: "text",  // Clip background to the text only
-    WebkitTextFillColor: "transparent",  // Makes the text appear transparent to show the gradient
-    textShadow: "1px 1px 5px rgba(0, 0, 0, 0.1)",  // Adds a soft shadow
-  }}
->
-  Sign Up to fusionFLOW
-</h1>
-<p
-  className="text-center"
-  style={{
-    fontSize: "1rem",  // A catchy subheading
-    color: "#6c757d",
-    marginTop: "-10px",  // Reduces space between the heading and subheading
-  }}
->
-</p>
-
-
-
-
-
+              className="h3 mb-4 fw-bold text-center"
+              style={{
+                fontSize: "2rem",
+                background: "linear-gradient(90deg, #007bff, #00b4db)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                textShadow: "1px 1px 5px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              Sign Up to fusionFLOW
+            </h1>
 
             <div className="form-floating mb-2">
               <input
@@ -111,26 +106,79 @@ export default function SignUp() {
               <label htmlFor="email">Email address</label>
             </div>
 
-            <div className="form-floating mb-2">
+            <div className="form-floating mb-2 position-relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className="form-control rounded-pill input-field"
                 id="password"
                 placeholder="Password"
                 name="password"
               />
               <label htmlFor="password">Password</label>
+              {/* Eye icon for password visibility */}
+
+{showPassword ? (
+               <Eye
+               className="toggle-password"
+               onClick={togglePasswordVisibility}
+               style={{
+                 position: "absolute",
+                 right: "10px",
+                 top: "50%",
+                 transform: "translateY(-50%)",
+                 cursor: "pointer",
+               }}
+             />
+              ) : (
+                <EyeOff
+                className="toggle-password"
+                onClick={togglePasswordVisibility}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+              />
+              )}
             </div>
 
-            <div className="form-floating mb-2">
+            <div className="form-floating mb-2 position-relative">
               <input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 className="form-control rounded-pill input-field"
                 id="confirmPassword"
                 placeholder="Confirm Password"
                 name="confirmPassword"
               />
               <label htmlFor="confirmPassword">Confirm Password</label>
+              {/* Eye icon for confirm password visibility */}
+              {showConfirmPassword ? (
+                <Eye
+                className="toggle-password"
+                onClick={toggleConfirmPasswordVisibility}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+              />
+              ) : (
+                <EyeOff
+                className="toggle-password"
+                onClick={toggleConfirmPasswordVisibility}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+              />
+              )}
             </div>
 
             {/* warning message */}
@@ -138,7 +186,7 @@ export default function SignUp() {
               {warningMsg}
             </div>
 
-            <div className="form-check text-start my-3">
+            <div className="form-check text-start mb-3">
               <input
                 className="form-check-input"
                 type="checkbox"
@@ -166,18 +214,21 @@ export default function SignUp() {
         </main>
       </div>
 
-      {/* Add custom CSS for hover effects */}
       <style jsx="true">{`
         .input-field {
           padding: 10px;
           border: 1px solid #ced4da;
           font-size: 1rem;
-          transition: all 0.3s ease; /* Smooth transition for hover effect */
+          transition: all 0.3s ease;
         }
 
         .input-field:hover {
-          border-color: #007bff; /* Change border color on hover */
-          box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5); /* Add subtle shadow */
+          border-color: #007bff;
+          box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .toggle-password {
+          font-size: 1.2rem;
         }
       `}</style>
     </>
