@@ -5,6 +5,8 @@ import SideBar from './components/SideBar'
 import { Outlet, useLoaderData } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { userDetailsSliceAction } from './store/UserDetails';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
 

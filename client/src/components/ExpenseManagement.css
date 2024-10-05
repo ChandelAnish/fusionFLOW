@@ -1,0 +1,30 @@
+.bg-purple {
+    background-color: #6a1b9a; /* Purple background */
+  }
+  
+  .text-white {
+    color: #ffffff;
+  }
+  
+  .table-dark th, .table-dark td, .table-dark {
+    background-color: #4a148c; /* Dark purple table background */
+  }
+  
+  .container {
+    max-width: 800px; /* Set maximum width for the container */
+    margin: 0 auto; /* Center the component */
+    padding: 20px; /* Add padding to the container */
+  }
+  
+  form {
+    width: 100%; /* Ensure form takes full width */
+  }
+  
+  .table {
+    font-size: 1.2rem; /* Increase table font size */
+  }
+  
+  h3 {
+    font-size: 1.5rem; /* Increase total amount font size */
+  }
+  
