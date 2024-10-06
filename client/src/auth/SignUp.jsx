@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom"
 
 export default function SignUp() {
 
   const [warningMsg,setwarningMsg] =useState('');
+
+  const navigate = useNavigate();
 
   const handelFormSubmit = async (e) => {
     e.preventDefault()
@@ -186,9 +189,12 @@ export default function SignUp() {
             </div>
 
             {/* warning message */}
-            <div className="text-danger m-2" style={{height:'24px',textAlign:"center"}}>
+            {/* It will Display Only Have On Error */}
+           {warningMsg && <div className="text-danger m-2" style={{height:'24px',textAlign:"center"}}>
               {warningMsg}
-            </div>
+            </div>}
+
+            <div className="mt-2 text-muted fw-bolder">Already have an account ? <span className="fw-bold cursor-pointer text-primary"  onClick={() => navigate("/signin")}>Login</span></div>
 
             <div className="form-check text-start my-3">
               <input

@@ -1,49 +1,54 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function SignIn() {
+  const [warningMsg, setwarningMsg] = useState("");
 
-  const [warningMsg, setwarningMsg] = useState('');
-
+  const navigate = useNavigate();
   const handelFormSubmit = async (e) => {
-    e.preventDefault()
-    setwarningMsg('');
-    const form = e.target
+    e.preventDefault();
+    setwarningMsg("");
+    const form = e.target;
 
     const email = form.email.value;
     const password = form.password.value;
 
-    const userDetails = { email, password }
+    const userDetails = { email, password };
 
-    const response = await signin(userDetails)
+    const response = await signin(userDetails);
     if (response.signin) {
-      window.open('/', '_parent')
-      console.log(response)
+      window.open("/", "_parent");
+      console.log(response);
+    } else {
+      setwarningMsg(response.msg);
     }
-    else {
-      setwarningMsg(response.msg)
-    }
-  }
+  };
 
   const signin = async (userDetails) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/signin`, {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        credentials:"include",
-        body: JSON.stringify(userDetails)
-      })
-      const data = await response.json()
-      return data
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/signin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(userDetails),
+        }
+      );
+      const data = await response.json();
+      return data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <>
-      <div className="d-flex align-items-center py-4 bg-body-tertiary" style={{ height: '100vh' }}>
+      <div
+        className="d-flex align-items-center py-4 bg-body-tertiary"
+        style={{ height: "100vh" }}
+      >
         <svg xmlns="http://www.w3.org/2000/svg" className="d-none">
           <symbol id="check2" viewBox="0 0 16 16">
             <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"></path>
@@ -131,9 +136,10 @@ export default function SignIn() {
           </ul>
         </div>
 
-        <main className="form-signin m-auto rounded-4" style={{ width: "20rem", backgroundColor: "white", padding: "25px" }}>
-
-
+        <main
+          className="form-signin m-auto rounded-4"
+          style={{ width: "20rem", backgroundColor: "white", padding: "25px" }}
+        >
           {/* form */}
           <form onSubmit={handelFormSubmit}>
             <h1 className="h3 mb-3 fw-normal">Welcome back !</h1>
@@ -161,11 +167,27 @@ export default function SignIn() {
             </div>
 
             {/* warning message */}
-            <div className="text-danger m-2" style={{ height: '24px', textAlign: "center" }}>
-              {warningMsg} &nbsp;
-              {(warningMsg==="User not exists") && <a href="/signup">Sign-up</a>}
+            {/* It will Display Only Have On Error */}
+            {warningMsg && (
+              <div
+                className="text-danger m-2"
+                style={{ height: "24px", textAlign: "center" }}
+              >
+                {warningMsg} &nbsp;
+                {warningMsg === "User not exists" && (
+                  <a href="/signup">Sign-up</a>
+                )}
+              </div>
+            )}
+            <div className="mt-2 text-muted text-primary fw-bolder">
+              Dont have an account ?
+              {" "} <span
+                className="fw-bold cursor-pointer text-primary"
+                onClick={() => navigate("/signup")}
+              >
+                 Signup
+              </span>
             </div>
-
             <div className="form-check text-start my-3">
               <input
                 className="form-check-input"
@@ -177,10 +199,13 @@ export default function SignIn() {
                 Remember me
               </label>
             </div>
-            <button className="btn btn-primary py-2" type="submit" style={{ width: "10rem" }}>
+            <button
+              className="btn btn-primary py-2"
+              type="submit"
+              style={{ width: "10rem" }}
+            >
               Sign in
             </button>
-
           </form>
         </main>
 
