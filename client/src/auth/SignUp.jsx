@@ -182,7 +182,7 @@ export default function SignUp() {
             </div>
 
             {/* warning message */}
-            <div className="text-danger m-2" style={{ height: "24px", textAlign: "center" }}>
+            <div className="text-danger m-2" style={{ height: "15px", textAlign: "center" }}>
               {warningMsg}
             </div>
 
@@ -203,7 +203,8 @@ export default function SignUp() {
                 type="submit"
                 style={{
                   width: "100%",
-                  background: "linear-gradient(90deg, #007bff 0%, #0056b3 100%)",
+                  height:"3.1rem",
+                  background: "linear-gradient(90deg, #007bff 0%, #00b4db 100%)",
                   border: "none",
                 }}
               >

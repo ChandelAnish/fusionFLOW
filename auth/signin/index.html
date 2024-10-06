@@ -6,31 +6,97 @@
   <title>Sign In</title>
   <link rel="icon" href="../assets/fusionFLOW-logo.png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  
+  <style>
+    /* Hover Effect for Input Fields */
+    .form-control {
+      /* Uniform height for all inputs */
+      line-height: 45px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow by default */
+    }
+
+    .form-control:hover, .form-control:focus {
+      outline: none;
+      border-color: #007bff; /* Blue outline on hover/focus */
+      box-shadow: 0 6px 8px rgba(0, 123, 255, 0.25); /* Stronger shadow on hover/focus */
+    }
+
+    .gradient-text {
+      font-size: 2rem;
+      background: linear-gradient(90deg, #007bff, #00b4db);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    }
+   
+
+    #togglePassword {
+      position: absolute;
+      right: 1rem; /* Align the icon to the right */
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+    .gradient-button {
+      background: linear-gradient(90deg, #007bff, #00b4db); /* Gradient colors */
+      color: white; /* Text color */
+      border: none; /* Remove border */
+      border-radius: 25px; /* Rounded corners */
+      padding: 10px 20px; /* Padding */
+      font-size: 1rem; /* Font size */
+      cursor: pointer; /* Pointer cursor on hover */
+      transition: background 0.3s ease; /* Smooth transition */
+    }
+
+    .gradient-button:hover {
+      background: linear-gradient(90deg, #0056b3, #0091c5); /* Darker gradient on hover */
+    }
+
+    /* Link styling */
+    .link-opacity-100 {
+        color: #007bff;
+        transition: color 0.3s;
+    }
+
+    .link-opacity-100:hover {
+        color: #0056b3; /* Darker blue on hover */
+        text-decoration: underline; /* Underline on hover */
+    }
+  </style>
 </head>
 <body class="bg-body-tertiary">
-
   <div class="d-flex align-items-center py-4" style="height: 100vh;">
-    <main class="form-signin m-auto rounded-4" style="width: 20rem; background-color: white; padding: 25px;">
+    <main class="form-signin m-auto rounded-4 shadow-lg" style="width: 21rem; background-color: white; padding: 25px;">
       <!-- form -->
       <form id="signinForm">
-        <h1 class="h3 mb-3 fw-normal">Welcome back !</h1>
+        <h1 class="h3 mb-3 fw-bold text-center gradient-text">Welcome back!</h1>
 
-        <div class="form-floating mb-2">
-          <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control rounded-4" id="email" placeholder="name@example.com" name="email">
           <label for="email">Email address</label>
         </div>
 
-        <div class="form-floating">
-          <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+        <div class="form-floating mb-0">
+          <input type="password" class="form-control rounded-4" id="password" placeholder="Password" name="password" required>
           <label for="password">Password</label>
+          <i class="bi bi-eye-slash" id="togglePassword"></i>
         </div>
+        
+
 
         <!-- warning message -->
-        <div class="text-danger m-2 text-center" id="warningMsg" style="height: 24px;"></div>
+        <div class="text-danger m-2 text-center" id="warningMsg" style="height: 15px;"></div>
+
+        <!-- signup link
+        <p style="font-size: 1rem;margin-left: 10px;">Not registered? <a class="link-opacity-100" href="https://fusionflow-signup.onrender.com/">Sign up</a></p> -->
 
         <!-- signup link -->
-        <p>Already registered <a class="link-opacity-100" href="https://fusionflow-signup.onrender.com/">Sign up</a></p>
+        <p class="m" style="font-size: 1rem; margin-top: 0px; margin-left: 0.4rem;">
+          Not registered? 
+          <a class="link-opacity-100" href="https://fusionflow-signup.onrender.com/" style="color: #007bff; font-weight: bold;">Sign up</a>
+      </p>
 
         <div class="form-check text-start my-3">
           <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
@@ -38,21 +104,37 @@
             Remember me
           </label>
         </div>
-        
-        <button class="btn btn-primary py-2" type="submit" style="width: 10rem;">Sign in</button>
+
+        <button class="btn gradient-button py-2 w-100" type="submit">Sign in</button>
       </form>
     </main>
   </div>
 
   <script>
+    document.getElementById('togglePassword').addEventListener('click', function() {
+      const passwordInput = document.getElementById('password');
+      const toggleIcon = this;
+
+      // Toggle password visibility
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text'; // Show password
+        toggleIcon.classList.remove('bi-eye-slash'); // Change to eye icon
+        toggleIcon.classList.add('bi-eye');
+      } else {
+        passwordInput.type = 'password'; // Hide password
+        toggleIcon.classList.remove('bi-eye'); // Change to eye-slash icon
+        toggleIcon.classList.add('bi-eye-slash');
+      }
+    });
+
     document.getElementById('signinForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const warningMsg = document.getElementById('warningMsg');
       warningMsg.textContent = '';
-      
+
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      
+
       const userDetails = { email, password };
 
       try {
@@ -64,11 +146,10 @@
           credentials: 'include',
           body: JSON.stringify(userDetails)
         });
-        
+
         const data = await response.json();
-        
+
         if (data.signin) {
-          // window.location.href = '/';
           window.location.href = 'https://fusionflow-asc.onrender.com';
         } else {
           warningMsg.textContent = data.msg;
@@ -82,6 +163,6 @@
     });
   </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -43,7 +43,6 @@ export default function SignIn() {
 
   // Toggle password visibility
   const togglePasswordVisibility = () => {
-    // setShowPassword(!showPassword);
     setShowPassword((prev) => !prev);
   };
 
@@ -53,11 +52,11 @@ export default function SignIn() {
         <main
           className="form-signin m-auto rounded-4 shadow-lg"
           style={{
-            width: "22rem",
-            backgroundColor: "#ffffff",
-            padding: "30px",
-            borderRadius: "16px",
-            boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.1)",
+            width: "25rem",
+            backgroundColor: "#fff",
+            padding: "25px",
+            borderRadius: "12px",
+            boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
           }}
         >
           {/* form */}
@@ -75,81 +74,56 @@ export default function SignIn() {
               Welcome Back!
             </h1>
 
-            <div className="form-floating mb-3">
+            <div className="form-floating mb-2">
               <input
                 type="email"
-                className="form-control rounded-pill"
-                id="floatingInput"
+                className="form-control rounded-pill input-field"
+                id="email"
                 placeholder="name@example.com"
                 name="email"
-                style={{
-                  padding: "12px 15px",
-                  border: "1px solid #ced4da",
-                  fontSize: "1rem",
-                  boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.borderColor = "#007bff";
-                  e.target.style.boxShadow = "0 0 5px rgba(0, 123, 255, 0.5)";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.borderColor = "#ced4da";
-                  e.target.style.boxShadow = "inset 0 1px 3px rgba(0, 0, 0, 0.1)";
-                }}
               />
-              <label htmlFor="floatingInput" className="ms-3">
-                Email address
-              </label>
+              <label htmlFor="email">Email address</label>
             </div>
 
-            <div className="form-floating mb-3 position-relative">
+            <div className="form-floating mb-2 position-relative">
               <input
                 type={showPassword ? "text" : "password"} // Toggle between password and text
-                className="form-control rounded-pill"
-                id="floatingPassword"
+                className="form-control rounded-pill input-field"
+                id="password"
                 placeholder="Password"
                 name="password"
-                style={{
-                  padding: "12px 15px",
-                  border: "1px solid #ced4da",
-                  fontSize: "1rem",
-                  boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.borderColor = "#007bff";
-                  e.target.style.boxShadow = "0 0 5px rgba(0, 123, 255, 0.5)";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.borderColor = "#ced4da";
-                  e.target.style.boxShadow = "inset 0 1px 3px rgba(0, 0, 0, 0.1)";
-                }}
               />
-              <label htmlFor="floatingPassword" className="ms-3">
-                Password
-              </label>
+              <label htmlFor="password">Password</label>
               {/* Eye icon for password visibility */}
-              <i
-                onClick={togglePasswordVisibility}
-                style={{
-                  position: "absolute",
-                  right: "15px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                }}
-              >
-                {/* {showPassword ? <EyeOff size={20} /> : <Eye size={20} />} */}
-                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-              </i>
+              {showPassword ? (
+                <Eye
+                  className="toggle-password"
+                  onClick={togglePasswordVisibility}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                />
+              ) : (
+                <EyeOff
+                  className="toggle-password"
+                  onClick={togglePasswordVisibility}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                />
+              )}
             </div>
 
             {/* warning message */}
-            <div
-              className="text-danger mb-0"
-              style={{ height: "24px", textAlign: "center", fontSize: "0.9rem" }}
-            >
+            <div className="text-danger mb-0" style={{ height: "15px", textAlign: "center", fontSize: "0.9rem" }}>
               {warningMsg} &nbsp;
               {warningMsg === "User not exists" && <a href="/signup">Sign-up</a>}
             </div>
@@ -172,14 +146,10 @@ export default function SignIn() {
                 type="submit"
                 style={{
                   width: "100%",
-                  background: "linear-gradient(90deg, #007bff 0%, #0056b3 100%)",
+                  height:"3.1rem",
+                  background: "linear-gradient(90deg, #007bff 0%, #00b4db 100%)",
                   border: "none",
-                  transition: "background 0.3s ease",
                 }}
-                onMouseEnter={(e) => (e.target.style.background = "#0056b3")}
-                onMouseLeave={(e) =>
-                  (e.target.style.background = "linear-gradient(90deg, #007bff 0%, #0056b3 100%)")
-                }
               >
                 Sign in
               </button>
@@ -187,6 +157,24 @@ export default function SignIn() {
           </form>
         </main>
       </div>
+
+      <style jsx="true">{`
+        .input-field {
+          padding: 12px 20px;
+          border: 1px solid #ced4da;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        .input-field:hover {
+          border-color: #007bff;
+          box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .toggle-password {
+          font-size: 1.2rem;
+        }
+      `}</style>
     </>
   );
 }
