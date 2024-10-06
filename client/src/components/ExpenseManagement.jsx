@@ -1,97 +1,170 @@
 import React, { useState } from "react";
 import { Form, Button, Table } from "react-bootstrap";
-import './ExpenseManagement.css'; // Import the custom purple theme
 
 const ExpenseManagement = () => {
-  const [expenses, setExpenses] = useState([]);
-  const [expense, setExpense] = useState({ name: "", amount: "", date: "" });
+  const [friends, setFriends] = useState([
+    { name: "Alice", balance: 0 },
+    { name: "Bob", balance: 0 },
+    { name: "Charlie", balance: 0 },
+  ]);
+
+  const [expense, setExpense] = useState({ description: "", amount: "", paidBy: "", sharedWith: [] });
+  const [expenseHistory, setExpenseHistory] = useState([]);
 
   const handleChange = (e) => {
-    setExpense({ ...expense, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setExpense({ ...expense, [name]: value });
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { value, checked } = e.target;
+    setExpense((prevExpense) => ({
+      ...prevExpense,
+      sharedWith: checked
+        ? [...prevExpense.sharedWith, value]
+        : prevExpense.sharedWith.filter((friend) => friend !== value),
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (expense.name && expense.amount && expense.date) {
-      setExpenses([...expenses, expense]);
-      setExpense({ name: "", amount: "", date: "" });
-    }
+    const amountPerFriend = expense.amount / expense.sharedWith.length;
+
+    const updatedFriends = friends.map((friend) => {
+      if (friend.name === expense.paidBy) {
+        return { ...friend, balance: friend.balance + parseFloat(expense.amount) - amountPerFriend };
+      } else if (expense.sharedWith.includes(friend.name)) {
+        return { ...friend, balance: friend.balance - amountPerFriend };
+      } else {
+        return friend;
+      }
+    });
+
+    setFriends(updatedFriends);
+    setExpenseHistory([...expenseHistory, expense]);
+    setExpense({ description: "", amount: "", paidBy: "", sharedWith: [] });
   };
 
-  const totalAmount = expenses.reduce((total, exp) => total + parseFloat(exp.amount), 0);
-
   return (
-    <div className="container mt-4">
-      <h2 className="text-center mb-4 text-white">Expense Management</h2>
+    <div className="container my-5 p-4 bg-light rounded shadow-lg" style={{ maxWidth: "900px" }}>
+      <h2 className="text-center mb-4 text-purple">Expenses </h2>
 
-      {/* Expense Form */}
-      <Form onSubmit={handleSubmit} className="bg-purple p-5 rounded shadow-lg">
-        <Form.Group controlId="formName">
-          <Form.Label className="text-white">Expense Name</Form.Label>
+      {/* Add Expense Form */}
+      <Form onSubmit={handleSubmit}>
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <Form.Group controlId="formDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter description"
+                name="description"
+                value={expense.description}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+          </div>
+          <div className="col-md-6">
+            <Form.Group controlId="formAmount">
+              <Form.Label>Amount</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter amount"
+                name="amount"
+                value={expense.amount}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+          </div>
+        </div>
+
+        <Form.Group controlId="formPaidBy" className="mb-3">
+          <Form.Label>Paid by</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="Enter expense name"
-            name="name"
-            value={expense.name}
+            as="select"
+            name="paidBy"
+            value={expense.paidBy}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="">Select a friend</option>
+            {friends.map((friend, index) => (
+              <option key={index} value={friend.name}>
+                {friend.name}
+              </option>
+            ))}
+          </Form.Control>
         </Form.Group>
 
-        <Form.Group controlId="formAmount" className="mt-3">
-          <Form.Label className="text-white">Amount</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter amount"
-            name="amount"
-            value={expense.amount}
-            onChange={handleChange}
-            required
-          />
+        <Form.Group className="mb-3">
+          <Form.Label>Shared with</Form.Label>
+          <div>
+            {friends.map((friend, index) => (
+              <Form.Check
+                key={index}
+                type="checkbox"
+                label={friend.name}
+                value={friend.name}
+                checked={expense.sharedWith.includes(friend.name)}
+                onChange={handleCheckboxChange}
+                className="form-check-purple"
+              />
+            ))}
+          </div>
         </Form.Group>
 
-        <Form.Group controlId="formDate" className="mt-3">
-          <Form.Label className="text-white">Date</Form.Label>
-          <Form.Control
-            type="date"
-            name="date"
-            value={expense.date}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Button variant="light" type="submit" className="mt-3">
+        <Button variant="primary" type="submit" className="btn-purple w-100">
           Add Expense
         </Button>
       </Form>
 
-      {/* Expense Table */}
-      {expenses.length > 0 && (
-        <Table striped bordered hover variant="dark" className="mt-4">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Expense Name</th>
-              <th>Amount</th>
-              <th>Date</th>
+      {/* Friends Balances */}
+      <h3 className="text-center mt-5">Balances</h3>
+      <Table striped bordered hover className="mt-3">
+        <thead>
+          <tr>
+            <th>Friend</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {friends.map((friend, index) => (
+            <tr key={index}>
+              <td>{friend.name}</td>
+              <td>{friend.balance >= 0 ? `$${friend.balance.toFixed(2)} owed` : `$${Math.abs(friend.balance).toFixed(2)} to pay`}</td>
             </tr>
-          </thead>
-          <tbody>
-            {expenses.map((exp, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{exp.name}</td>
-                <td>${exp.amount}</td>
-                <td>{exp.date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
+          ))}
+        </tbody>
+      </Table>
 
-      {/* Total Amount */}
-      <h3 className="text-center text-white mt-4">Total: ${totalAmount.toFixed(2)}</h3>
+      {/* Expense History */}
+      {expenseHistory.length > 0 && (
+        <>
+          <h3 className="text-center mt-5">Expense History</h3>
+          <Table striped bordered hover className="mt-3">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Paid By</th>
+                <th>Shared With</th>
+              </tr>
+            </thead>
+            <tbody>
+              {expenseHistory.map((exp, index) => (
+                <tr key={index}>
+                  <td>{exp.description}</td>
+                  <td>${exp.amount}</td>
+                  <td>{exp.paidBy}</td>
+                  <td>{exp.sharedWith.join(", ")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </>
+      )}
     </div>
   );
 };
