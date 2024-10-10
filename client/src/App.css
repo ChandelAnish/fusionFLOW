@@ -1,61 +1,70 @@
-/* call button */
-.callbtn{
-    color: rgb(215, 94, 253);
+button {
     font-size: 55px;
-    position:absolute;
-    left: 50rem;
-    bottom:85px;
+    position: absolute;
+    bottom: 85px;
+    transition: all 0.4s; 
 }
-.callbtn:hover{
+
+/* Call button */
+.callbtn {
+    color: rgb(215, 94, 253);
+    left: 50rem;
+}
+
+.callbtn:hover {
     cursor: pointer;
     color: rgb(218, 142, 241);
     transform: scale(1.2);
-    transition: all .4s;
 }
-.callbtn:active{
+
+.callbtn:active {
     color: rgb(215, 94, 253);
     transform: scale(1);
-    transition: all .4s;
 }
 
-
-/* incoming call button */
-.incomingCall{
+/* Incoming call button */
+.incomingCall {
     color: rgb(153, 255, 0);
-    font-size: 55px;
-    position:absolute;
     left: 60rem;
-    bottom:85px
 }
-.incomingCall:hover{
+
+.incomingCall:hover {
     cursor: pointer;
     color: rgb(140, 233, 0);
     transform: scale(1.2);
-    transition: all .4s;
 }
-.incomingCall:active{
+
+.incomingCall:active {
     color: rgb(153, 255, 0);
     transform: scale(1);
-    transition: all .4s;
 }
 
-
-/* end call button */
-.endCall{
+/* End call button */
+.endCall {
     color: rgb(255, 0, 0);
-    font-size: 55px;
-    position:absolute;
-    left: 60rem;
-    bottom:85px
+    left: 70rem; 
 }
-.endCall:hover{
+
+.endCall:hover {
     cursor: pointer;
     color: rgb(255, 82, 82);
-    transition: all .4s;
     transform: scale(1.2);
 }
-.endCall:active{
+
+.endCall:active {
     color: rgb(255, 0, 0);
     transform: scale(1);
-    transition: all .4s;
 }
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    .callbtn, .incomingCall, .endCall {
+        font-size: 40px; 
+        left: 5rem; 
+    }
+}
+
+/* Additional styles for accessibility */
+button:focus {
+    outline: none; 
+    box-shadow: 0 0 0 4px rgba(255, 255, 0, 0.5); }

@@ -1,41 +1,48 @@
 import { useMutation } from "@tanstack/react-query";
-
 import React from "react";
 import { chatsSliceAction } from "../store/Chats";
 import { useDispatch } from "react-redux";
 
 export default function usePatchChatArray() {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
-
-  const patchMessage = async (chat) => {
+  const patchChat = async (chat) => {
     const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/chats`, {
       method: "PATCH",
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
       credentials: "include",
       body: JSON.stringify(chat),
     });
+
+    // Check if response is successful
+    if (!response.ok) {
+      throw new Error('Failed to patch chat data');
+    }
+
     const data = await response.json();
 
-    // for logged out user
-    // if (data.signin) {
-    //   window.open("/signin", "_parent");
-    //   return {};
-    // }
+    // Redirect if the user is logged out
+    if (!data.signin) {
+      window.open("/signin", "_parent");
+      return {};
+    }
+
     return data;
   };
 
-  //useMutation hook patch chat
+  // useMutation hook to patch chat
   const mutation = useMutation({
-    mutationFn: patchMessage,
+    mutationFn: patchChat,
     onSuccess: (data, variables) => {
-      //the variables parameter refers to the arguments that were passed to the mutate function i.e the chat variable
-    dispatch(chatsSliceAction.sendChat(variables));
+      dispatch(chatsSliceAction.sendChat(variables));
+      // Optionally provide user feedback
+      console.log("Chat updated successfully:", data);
     },
     onError: (error) => {
       console.error("Error sending chat:", error);
+      // Optionally handle user feedback for error
     },
   });
 
