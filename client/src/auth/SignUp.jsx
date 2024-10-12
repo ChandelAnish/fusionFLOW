@@ -75,7 +75,7 @@ export default function SignUp() {
               className="h3 mb-4 fw-bold text-center"
               style={{
                 fontSize: "2rem",
-                background: "linear-gradient(90deg, #007bff, #00b4db)",
+                background: "linear-gradient(90deg, #b308d6, #d306c8)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 textShadow: "1px 1px 5px rgba(0, 0, 0, 0.1)",
@@ -204,7 +204,7 @@ export default function SignUp() {
                 style={{
                   width: "100%",
                   height:"3.1rem",
-                  background: "linear-gradient(90deg, #007bff 0%, #00b4db 100%)",
+                  background: "linear-gradient(90deg, #b308d6 0%, #d306c8 100%)",
                   border: "none",
                 }}
               >
