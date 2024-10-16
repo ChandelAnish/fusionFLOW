@@ -55,7 +55,8 @@ const signin = async (req, res) => {
       return res.status(400).json({ signin: false, msg: "User not exists" });
     } else {
       // console.log(userDetails);
-      if (password === userDetails.password) {
+      const validUser = await userDetails.isPasswordCorrect(password)
+      if (validUser) {
 
         const token = setUser(userDetails.username,email,password)
         // console.log(token)
