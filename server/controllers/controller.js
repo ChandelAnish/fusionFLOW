@@ -2,47 +2,136 @@ const { setUser } = require("../jwt/jwt");
 const blurb = require("../model/blurbs");
 const chats = require("../model/chats");
 const user = require("../model/users");
+const { body, validationResult } = require('express-validator');
+const nodemailer=require('nodemailer')
+const bcrypt=require('bcrypt')
 
 const testing = (req, res) => {
   res.send("hello");
 };
 
 //signup
-const signup = async (req, res) => {
+const OTP = () => {
+  const min = 100000;
+  const max = 999999;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const sendOTPEmail = async (email, otp) => {
+  const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
+      }
+  });
+
+  const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: `OTP for Fusion-FLow`,
+      html: `<p>The OTP for signing in to Fusion-Flow is ${otp}.</p><br><p>Do not share it with anyone.</p>`
+  };
+
+  return transporter.sendMail(mailOptions);
+};
+
+const checkUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(400).json({ message: errors.array() });
+  }
+
   try {
-    const { username, email, password, confirmPassword } = req.body;
+      let users = await user.findOne({ email: req.body.email });
+      if (users) {
+          return res.status(400).json({ message: "The account with this email id already exists" });
+      }
 
-    // Check if username already exists
-    const existingUsername = await user.findOne({ username });
-    if (existingUsername) {
-      return res
-        .status(400)
-        .json({ signup: false, msg: "Username already exists" });
-    }
+      let name = await user.findOne({ username: req.body.username });
+      if (name) {
+          return res.status(400).json({ message: "The username already exists. Choose a different username." });
+      }
 
-    // Check if email already exists
-    const existingEmail = await user.findOne({ email });
-    if (existingEmail) {
-      return res
-        .status(400)
-        .json({ signup: false, msg: "Email already exists" });
-    }
-
-    // Check if password matches confirm password
-    if (password !== confirmPassword) {
-      return res
-        .status(400)
-        .json({ signup: false, msg: "Passwords do not match" });
-    }
-
-    // Create new user
-    const newUser = await user.create({ username, email, password });
-    res.status(200).json({ signup: true, newUser });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ msg: "Some error occurred" });
+      const otp = OTP();
+      await sendOTPEmail(req.body.email, otp);
+      res.json({ success:true, 'otp': otp });
+  } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Server error" });
   }
 };
+
+const signUpUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(400).json({ message: errors.array() });
+  }
+
+  try {
+      let user1 = await user.findOne({ email: req.body.email });
+      if (user1) {
+          return res.status(400).json({ message: "The account with this email id already exists" });
+      }
+
+      let name = await user.findOne({ username: req.body.username });
+      if (name) {
+          return res.status(400).json({ message: "The username already exists. Choose a different username." });
+      }
+
+      const password = req.body.password;
+      const salt = await bcrypt.genSalt(10);
+      const secPass = await bcrypt.hash(password, salt);
+      
+      user1 = new user({
+          username: req.body.username,
+          email: req.body.email,
+          password: secPass
+      });
+
+
+      await user1.save();
+      res.status(200).json({ signup: true, user1 })
+  } catch (err) {
+    console.log(err)
+      return res.status(500).json({ message: "Sorry! Server error has been detected" });
+  }
+};
+// const signup = async (req, res) => {
+//   try {
+//     const { username, email, password, confirmPassword } = req.body;
+
+//     // Check if username already exists
+//     const existingUsername = await user.findOne({ username });
+//     if (existingUsername) {
+//       return res
+//         .status(400)
+//         .json({ signup: false, msg: "Username already exists" });
+//     }
+
+//     // Check if email already exists
+//     const existingEmail = await user.findOne({ email });
+//     if (existingEmail) {
+//       return res
+//         .status(400)
+//         .json({ signup: false, msg: "Email already exists" });
+//     }
+
+//     // Check if password matches confirm password
+//     if (password !== confirmPassword) {
+//       return res
+//         .status(400)
+//         .json({ signup: false, msg: "Passwords do not match" });
+//     }
+
+//     // Create new user
+//     const newUser = await user.create({ username, email, password });
+//     res.status(200).json({ signup: true, newUser });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ msg: "Some error occurred" });
+//   }
+// };
 
 //signin
 const signin = async (req, res) => {
@@ -172,4 +261,4 @@ const getAllChats = async (req, res) => {
   }
 };
 
-module.exports = { testing, postBlurb, getBlurbs, signup, signin ,getAllUsers,getloggedUserDetails,getAllChats,patchChat};
+module.exports = {checkUser,signUpUser, testing, postBlurb, getBlurbs, signin ,getAllUsers,getloggedUserDetails,getAllChats,patchChat};
