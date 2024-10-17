@@ -1,9 +1,4 @@
-button {
-    font-size: 55px;
-    position: absolute;
-    bottom: 85px;
-    transition: all 0.4s; 
-}
+
 
 /* Call button */
 .callbtn {
@@ -32,6 +27,11 @@ button {
     cursor: pointer;
     color: rgb(140, 233, 0);
     transform: scale(1.2);
+}
+.add-link{
+background-color: blue;
+height: 50vh;
+width: 50vw;
 }
 
 .incomingCall:active {

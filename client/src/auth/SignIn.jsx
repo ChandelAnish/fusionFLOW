@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function SignIn() {
 
@@ -177,9 +178,12 @@ export default function SignIn() {
                 Remember me
               </label>
             </div>
-            <button className="btn btn-primary py-2" type="submit" style={{ width: "10rem" }}>
-              Sign in
+            <button className="btn btn-primary " type="submit" style={{ width: "100px" }}>
+              Sign down
             </button>
+            <div className="mt-3 text-center add-link " style={{color:"black"}}>
+              Don't have an account? <Link to="/signun">Sign Up</Link>
+            </div>
 
           </form>
         </main>
