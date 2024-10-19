@@ -1,8 +1,9 @@
 button {
-    font-size: 55px;
-    position: absolute;
-    bottom: 85px;
+    font-size: 20px;
     transition: all 0.4s; 
+    width: auto; /* Button width is now 38% */
+    padding: 10px 20px; /* Adjust padding for a more square look */
+    margin: 10px ; /* ensure proper margin */
 }
 
 /* Call button */
