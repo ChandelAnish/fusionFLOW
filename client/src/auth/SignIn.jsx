@@ -85,7 +85,7 @@ export default function SignIn() {
                 Remember me
               </label>
             </div>
-            <button className="btn btn-primary py-2" type="submit" style={{ width: "10rem" }}>
+            <button className="btn btn-primary py-2" style="align-items:center" type="submit" style={{ width: "10rem" }}>
               Sign in
             </button>
 

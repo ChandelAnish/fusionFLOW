@@ -54,13 +54,24 @@
         border-radius: 4px;
       }
       .sign-in-form button {
-        width: 100%;
+        width: 10%;
         padding: 10px;
         background-color: #35424a;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        margin-bottom: 200px;
+        align-items: center;
+        justify-content: center;
+
+        
+      }
+
+      .sign-in-form .btn{
+        align-items: center;
+
+        justify-content: center;
       }
       .sign-in-form button:hover {
         background-color: #434f59;
@@ -70,10 +81,18 @@
         color: white;
         text-align: center;
         padding: 10px 0;
-        position: absolute;
         bottom: 0;
         width: 100%;
       }
+      footer a{
+        color: white;
+        text-decoration: none;
+      }
+      footer ul{
+        list-style: none;
+        padding: 0;
+      }
+      
     </style>
   </head>
   <body>
@@ -90,18 +109,37 @@
         <h2>Sign In</h2>
         <form id="signInForm">
           <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required />
+          <input type="text" id="username" name="username" required aria-label="Username" />
           
           <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required />
+          <input type="password" id="password" name="password" required aria-label="Password" />
+          <div class="btn">
+            <button type="submit">Sign In</button>
+
+          </div>
           
-          <button type="submit">Sign In</button>
+          
         </form>
       </div>
     </main>
     <footer>
-      <p>&copy; 2024 fusionFLOW. All rights reserved.</p>
-    </footer>
-    <script type="module" src="/src/main.jsx"></script>
+          <div class="footer-container">
+              <div class="footer-links">
+                  <h4>Quick Links</h4>
+                  <ul>
+                      <li><a href="#features">Features</a></li>
+                      <li><a href="#about">About</a></li>
+                      <li><a href="#contact">Contact</a></li>
+                      <li><a href="#privacy">Privacy Policy</a></li>
+                  </ul>
+              </div>
+              
+          </div>
+          <div class="footer-bottom">
+              <p>&copy; 2024 fusionFLOW. All rights reserved.</p>
+          </div>
+      </footer>
+      
+    <script type="module" src="/src/app.jsx"></script>
   </body>
 </html>

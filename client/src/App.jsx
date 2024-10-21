@@ -5,6 +5,8 @@ import SideBar from './components/SideBar';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userDetailsSliceAction } from './store/UserDetails';
+import Footer from './components/Footer';
+import SignIn from './auth/SignIn';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +21,10 @@ function App() {
       <div className="content w-100">
         <Navbar />
         <Outlet />
+        <SignIn/>
+        <Footer/>
+         
+       
       </div>
     </div>
   );

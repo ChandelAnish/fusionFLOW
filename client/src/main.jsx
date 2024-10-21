@@ -54,6 +54,7 @@ const AppRoot = () => {
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
+      <App/>
     </QueryClientProvider>
   );
 };
