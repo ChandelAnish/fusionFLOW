@@ -1,6 +1,5 @@
 button {
     font-size: 55px;
-    position: absolute;
     bottom: 85px;
     transition: all 0.4s; 
 }
