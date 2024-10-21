@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="image.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fusionFLOW</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom right, #6a1b9a, #ffffff); /* Purple to white gradient */
+        color: #333;
+      }
+      header {
+        background: linear-gradient(90deg, #6a1b9a, #512da8); /* Purple gradient */
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+        position: relative;
+        z-index: 1000;
+      }
+      header img{
+        max-width: 200px; /* Adjust the size of the logo */
+        height: auto;
+        text-align: left;
+        /*margin: 0 left 10px; /* Center the logo and add bottom margin */
+      }
+      header h1 {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+        margin: 0;
+      }
+      nav {
+        margin: 10px 0;
+      }
+      nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: bold;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: background 0.3s;
+      }
+      nav a:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Hover effect */
+      }
+      main {
+        display: flex;
+        justify-content: center; /* Center the form horizontally */
+        align-items: center; /* Center the form vertically */
+        height: calc(100vh - 200px); /* Adjust height considering header and footer */
+        background-color: #e3f2fd; /* Light blue background */
+      }
+      .sign-in-form {
+        background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for form */
+        max-width: 400px;
+        width: 100%;
+        text-align: center; /* Center text in the form */
+      }
+      .sign-in-form h2 {
+        margin-bottom: 20px;
+        color: #512da8; /* Dark purple for headings */
+      }
+      .sign-in-form label {
+        display: block;
+        margin: 10px 0 5px;
+        color: #512da8; /* Purple for labels */
+        text-align: left;
+      }
+      .sign-in-form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the buttons horizontally */
+        gap: 15px; /* Space between buttons */
+      }
+      .sign-in-form button {
+        width: 60%; /* Reduce the width to center buttons */
+        padding: 12px;
+        background-color: #512da8; /* Purple button */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: background 0.3s;
+      }
+      .sign-in-form button:hover {
+        background-color: #6a1b9a; /* Darker purple on hover */
+      }
+      .login-link {
+        width: 60%; /* Match the width with Sign In button */
+        display: block;
+        padding: 11px;
+        text-align: center;
+        background-color: #fff; /* White background for Log In button */
+        color: #512da8; /* Purple text for Log In button */
+        border: 2px solid #512da8; /* Purple border */
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: background 0.3s;
+      }
+      .login-link:hover {
+        background-color: #512da8; /* Purple background on hover */
+        color: #fff; /* White text on hover */
+      }
+      footer {
+        background: linear-gradient(90deg, #6a1b9a, #512da8); /* Match header gradient */
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Footer shadow */
+      }
+      footer p {
+        margin: 0;
+        font-size: 1rem;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <header>
+      
+      <img  src="image.png" alt="fusionFLOW Logo" style="text-align: left;"/>
+      <h1>Welcome to fusionFLOW</h1>
+      
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+    <main>
+      <div class="sign-in-form">
+        <h2>Sign In</h2>
+        <form id="signInForm">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+          
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+          
+          <div class="button-container">
+            <button type="submit">Sign In</button>
+            <a href="#" class="login-link">Log In</a>
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2024 fusionFLOW. All rights reserved.</p>
+    </footer>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
