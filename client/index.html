@@ -1,107 +1,187 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/fusionFLOW-logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fusionFLOW</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        color: #333;
-      }
-      header {
-        background: #35424a;
-        color: white;
-        padding: 15px 20px;
-        text-align: center;
-      }
-      nav {
-        margin: 10px 0;
-      }
-      nav a {
-        color: white;
-        margin: 0 15px;
-        text-decoration: none;
-      }
-      main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: calc(100vh - 100px);
-      }
-      .sign-in-form {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-      .sign-in-form h2 {
-        margin-bottom: 20px;
-      }
-      .sign-in-form label {
-        display: block;
-        margin: 10px 0 5px;
-      }
-      .sign-in-form input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-      .sign-in-form button {
-        width: 100%;
-        padding: 10px;
-        background-color: #35424a;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .sign-in-form button:hover {
-        background-color: #434f59;
-      }
-      footer {
-        background: #35424a;
-        color: white;
-        text-align: center;
-        padding: 10px 0;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Welcome to fusionFLOW</h1>
-      <nav>
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
-    <main>
-      <div class="sign-in-form">
-        <h2>Sign In</h2>
-        <form id="signInForm">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required />
-          
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" required />
-          
-          <button type="submit">Sign In</button>
-        </form>
-      </div>
-    </main>
-    <footer>
-      <p>&copy; 2024 fusionFLOW. All rights reserved.</p>
-    </footer>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/fusionFLOW-logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fusionFLOW</title>
+  <style>
+    /* Reset some default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f5f9;
+      color: #333;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 120px);
+      padding: 20px;
+      background: linear-gradient(135deg, #e0f7fa, #f1f5f9);
+    }
+
+    .nk-sign-in-form {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      height: 400px;
+      margin-bottom: 50px;
+    }
+
+    .nk-sign-in-form h2 {
+      font-size: 24px;
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: #111827;
+      text-align: center;
+    }
+
+    .nk-sign-in-form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #6b7280;
+    }
+
+    .nk-sign-in-form input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background-color: #f9fafb;
+      outline: none;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+
+    .nk-sign-in-form input:focus {
+      border-color: #38bdf8;
+      background-color: white;
+    }
+
+    /* Button styles for the sign-in button */
+    .sign-in-button {
+      width: 100%;
+      padding: 14px;
+      background-color: #38bdf8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .sign-in-button:hover {
+      background-color: #0284c7;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .sign-in-button:active {
+      background-color: #0369a1;
+    }
+
+    .nk-sign-in-form .forgot-password {
+      text-align: right;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+
+    .nk-sign-in-form .forgot-password a {
+      color: #0284c7;
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nk-sign-in-form .forgot-password a:hover {
+      color: #0369a1;
+    }
+
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>fusionFLOW</h1>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <div class="nk-sign-in-form">
+      <h2>Welcome Back</h2>
+      <form id="signInForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+
+        <div class="forgot-password">
+          <a href="#">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="sign-in-button">Sign In</button>
+
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2024 fusionFLOW. All rights reserved.</p>
+  </footer>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
