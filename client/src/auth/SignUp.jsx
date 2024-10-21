@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function SignUp() {
-
+export default function SignUp({setOtp}) {
+  const navigate=useNavigate();
   const [warningMsg,setwarningMsg] =useState('');
 
   const handelFormSubmit = async (e) => {
@@ -21,18 +22,24 @@ export default function SignUp() {
     const userDetails = { username, email, password, confirmPassword }
 
     const response = await signup(userDetails)
-    console.log(response)
-    if (response.signup) {
-      window.open('/signin', '_parent')
+    console.log(response.success)
+    if(response.success==true){
+      setOtp({userDetails:userDetails,otp:response.otp})
+      navigate('/otp')
+    }else{
+      setwarningMsg(response.message)
     }
-    else{
-      setwarningMsg(response.msg)
-    }
+    // if (response.signup) {
+    //   window.open('/signin', '_parent')
+    // }
+    // else{
+    //   setwarningMsg(response.msg)
+    // }
   }
 
   const signup = async (userDetails) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/signup`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/check`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -41,7 +48,8 @@ export default function SignUp() {
         body: JSON.stringify(userDetails)
       })
       const data = await response.json()
-      return data
+      
+      return data;
     } catch (error) {
       console.log(error)
     }
