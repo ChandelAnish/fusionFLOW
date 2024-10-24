@@ -2,7 +2,7 @@
 
 # 🌐 FusionFLOW 🖌️
 
-<img  src="https://readme-typing-svg.herokuapp.com?color=45ffaa&center=true&vCenter=true&size=40&width=900&height=80&lines=Welcome+to+Station+Guide!"/>
+<img  src="https://readme-typing-svg.herokuapp.com?color=45ffaa&center=true&vCenter=true&size=40&width=900&height=80&lines=Welcome+to+fusion+FLOW!"/>
 </div>
 
 <div align = "center">
