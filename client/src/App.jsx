@@ -5,6 +5,7 @@ import SideBar from './components/SideBar';
 import { Outlet, useLoaderData } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { userDetailsSliceAction } from './store/UserDetails';
+import ProgressBar from './components/ProgressBar';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,13 +15,16 @@ function App() {
   dispatch(userDetailsSliceAction.getUserDetails(userDetails));
 
   return (
-    <div className="app-container d-flex">
-      <SideBar />
-      <div className="content w-100">
-        <Navbar />
-        <Outlet />
+    <>
+      <ProgressBar/>
+      <div className="app-container d-flex">
+        <SideBar />
+        <div className="content w-100">
+          <Navbar />
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
