@@ -5,18 +5,20 @@ const {
   testing,
   postBlurb,
   getBlurbs,
-  signup,
   signin,
   getAllUsers,
   getloggedUserDetails,
   patchChat,
-  getAllChats
+  getAllChats,
+  signUpUser,
+  checkUser
 } = require("../controllers/controller");
 
 router.get("/", testing);
 
 //sign up
-router.route("/signup").post(signup);
+router.route('/check').post(checkUser);
+router.route("/signup").post(signUpUser);
 
 //sign in
 router.route("/signin").post(signin);
