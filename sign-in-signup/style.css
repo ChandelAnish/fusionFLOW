@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eaf2f9;
+    color: #333;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 550px;
+    padding: 20px;
+    margin: 50px auto;
+    background: linear-gradient(135deg, #e0f7fa, #f1f5f9);
+}
+
+.nk-sign-in-form {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    height: 640px;
+    margin-bottom: 50px;
+}
+
+header{
+    color: rgb(56, 115, 205);
+    text-align: center;
+}
+
+.nk-sign-in-form h1 {
+    font-size: 30px;
+    font-family: 'Poppins';
+    margin: 24px 28px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.nk-sign-in-form label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 470;
+    color: #1e2024;
+}
+
+.nk-sign-in-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #a5abb4;
+    border-radius: 8px;
+    background-color: #e2eaf2;
+    outline: none;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.nk-sign-in-form input:focus {
+    border-color: #21b3f2;
+    background-color: white;
+}      
+
+.form-check-label{
+    font-size: 15px; 
+    color: #333;    
+    padding-left: 5px; 
+    cursor: pointer;        
+    transition: color 0.3s;  
+}   
+    
+.form-check-label:hover {
+    color: #007bff;        
+    text-decoration: underline; 
+}
+
+
+  /* Button styles for the sign-in button */
+.btn-primary{
+    width: 90%;
+    padding: 14px;
+    margin-bottom:12px;
+    margin-left: 21px;
+    background-color: #38bdf8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0284c7;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:active {
+    background-color: #20ba1d;
+    transition: 0s;
+}
+
+.login{
+    margin-top: 2px;
+    text-align: center;
+}

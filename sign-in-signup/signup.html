@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up to fusionFLOW</title>
+    <link rel="icon" href="../assets/fusionFLOW-logo.png">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  </head>
+  <body class="bg-body-tertiary">
+    <div class="d-flex align-items-center py-4">
+      <main>
+        <div class="nk-sign-in-form">
+          <header><h1 class="h3 mb-3 fw-normal">Sign Up to fusionFLOW</h1></header>
+
+          <form id="signupForm">
+           <div class="form-floating mb-2">
+              <label for="username">Username</label>
+              <input
+               type="text"
+               class="form-control"
+               id="username"
+               placeholder="name_123"
+               name="username"
+               required
+              />
+           </div>
+
+           <div class="form-floating mb-2">
+             <label for="email">Email address</label>
+             <input
+               type="email"
+               class="form-control"
+               id="email"
+               placeholder="name@example.com"
+               name="email"
+               required
+              />
+              </div>
+
+           <div class="form-floating mb-2">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Password"
+                name="password"
+                required
+              />
+           </div>
+
+           <div class="form-floating">
+              <label for="confirmPassword">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                placeholder="Password"
+                name="confirmPassword"
+                required
+              />
+           </div>
+           
+
+           <div >
+             <label class="form-check-label" for="flexCheckDefault">
+              Remember me
+
+              <input style="width: 10%;"
+                class="form-input"
+                type="checkbox"
+                value="Remember me"
+                id="flexCheckDefault"
+              />
+             </label>
+           </div>
+           
+
+           <button class="btn-primary" type="submit">
+            Sign up
+           </button>
+
+           <div class="login">
+           <a href="index.html">Already have an account? Log in here</a>
+           </div>
+         </form>
+       </div>
+      </main>
+    </div>
+
+    <script>
+      document.getElementById('signupForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const warningMsg = document.getElementById('warningMsg');
+        warningMsg.textContent = '';
+
+        const form = e.target;
+
+        const username = form.username.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
+
+        if (password !== confirmPassword) {
+          warningMsg.textContent = 'Passwords do not match';
+          return;
+        }
+
+        const userDetails = { username, email, password, confirmPassword };
+
+        const response = await signup(userDetails);
+
+        if (response.signup) {
+          window.location.href = 'https://fusionflow-signin.onrender.com';
+        } else {
+          warningMsg.textContent = response.msg;
+        }
+      });
+
+      async function signup(userDetails) {
+        try {
+          const response = await fetch('https://fusionflow-vm59.onrender.com/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify(userDetails),
+          });
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
