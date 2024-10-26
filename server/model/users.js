@@ -14,7 +14,11 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:[true,"Blurb Description must be provided"],
         trim:true
-    }
+    },
+
+    avatar: {
+        type: String,
+    },
 })
 
 

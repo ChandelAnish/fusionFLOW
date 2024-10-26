@@ -10,8 +10,12 @@ const {
   getAllUsers,
   getloggedUserDetails,
   patchChat,
-  getAllChats
+  getAllChats,
+  uploadImage,
+  updateAvatar,
+  updateAccountDetails,
 } = require("../controllers/controller");
+const upload = require("../middleware/multer.js");
 
 router.get("/", testing);
 
@@ -22,16 +26,39 @@ router.route("/signup").post(signup);
 router.route("/signin").post(signin);
 
 //get logged in user details
-router.route("/loggedUserDetails").get(loggedInUserOnly,getloggedUserDetails);
+router.route("/loggedUserDetails").get(loggedInUserOnly, getloggedUserDetails);
 
 //get all users
-router.route("/users").get(loggedInUserOnly,getAllUsers);
+router.route("/users").get(loggedInUserOnly, getAllUsers);
 
 //post blurb
-router.route("/blurb").post(loggedInUserOnly,postBlurb).get(loggedInUserOnly,getBlurbs);
+router
+  .route("/blurb")
+  .post(loggedInUserOnly, postBlurb)
+  .get(loggedInUserOnly, getBlurbs);
 
 //save chats & get chat
-router.route("/chats/:user1/:user2").get(loggedInUserOnly,getAllChats);
-router.route("/chats").patch(loggedInUserOnly,patchChat);
+router.route("/chats/:user1/:user2").get(loggedInUserOnly, getAllChats);
+router.route("/chats").patch(loggedInUserOnly, patchChat);
+
+// user avatar upload and update
+router.route("/avatar").post(
+  // loggedInUserOnly,
+  upload.fields(
+    [
+      {
+        name:"avatar",
+        maxCount:1
+      }
+    ],
+  ), // taking avatar picture using multer
+  uploadImage
+);
+router.route("/updateAvatar")
+      .patch(loggedInUserOnly, upload.single("avatar"), updateAvatar);
+
+
+//  user details update
+router.route("/update-details").patch(loggedInUserOnly,updateAccountDetails )
 
 module.exports = router;
