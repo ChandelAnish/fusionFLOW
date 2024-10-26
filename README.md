@@ -165,6 +165,14 @@ Feel free to fork this repository and contribute by submitting a pull request. F
 
 **Please adhere to this project's `code of conduct`.**
 
+## 👀 Our Valuable Contributors 💖✨
+
+<div align="center">
+  <a href="https://github.com/ChandelAnish/fusionFLOW/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=ChandelAnish/fusionFLOW&max=100" />
+  </a>
+</div>
+
 
 ## 💬 Feedback & Support
 
