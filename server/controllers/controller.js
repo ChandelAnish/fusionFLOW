@@ -4,7 +4,6 @@ const chats = require("../model/chats");
 const user = require("../model/users");
 const { body, validationResult } = require('express-validator');
 const nodemailer=require('nodemailer')
-const bcrypt=require('bcrypt')
 
 const testing = (req, res) => {
   res.send("hello");
@@ -80,18 +79,23 @@ const signUpUser = async (req, res) => {
       }
 
       const password = req.body.password;
-      const salt = await bcrypt.genSalt(10);
-      const secPass = await bcrypt.hash(password, salt);
+      // const salt = await bcrypt.genSalt(10);
+      // const secPass = await bcrypt.hash(password, salt);
       
       user1 = new user({
           username: req.body.username,
           email: req.body.email,
-          password: secPass
+          password: password
       });
 
 
-      await user1.save();
-      res.status(200).json({ signup: true, user1 })
+      let regUser = await user1.save();
+      regUser= {
+        _id : regUser._id,
+        email: regUser.email,
+        username: regUser.username
+      }
+      res.status(200).json({ signup: true, regUser })
   } catch (err) {
     console.log(err)
       return res.status(500).json({ message: "Sorry! Server error has been detected" });
@@ -138,15 +142,15 @@ const signin = async (req, res) => {
   // console.log(req.body);
   try {
     const { email, password } = req.body;
-
     const userDetails = await user.findOne({ email });
     if (!userDetails) {
       return res.status(400).json({ signin: false, msg: "User not exists" });
     } else {
       // console.log(userDetails);
-      if (password === userDetails.password) {
-
-        const token = setUser(userDetails.username,email,password)
+      // if (password === userDetails.password) {
+        const validUser = await userDetails.isPasswordCorrect(password)
+        if(validUser){
+        const token = setUser(userDetails.username,email)
         // console.log(token)
 
         res.cookie('fusionFLOW_Token', token, {
@@ -155,8 +159,12 @@ const signin = async (req, res) => {
           sameSite: 'None',
           expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
       });
-
-        return res.status(200).json({ signin: true, userDetails,token });
+        const loggedInUser = {
+         _id:userDetails._id,
+         email: userDetails.email,
+         username: userDetails.username
+        }
+        return res.status(200).json({ signin: true, loggedInUser,token });
       }
       else{
         return res.status(401).json({ signin: false, msg: "Incorrect email or password" });
