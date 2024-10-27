@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const OTP = ({otp}) => {
-    const [warningMsg,setwarningMsg] =useState('');
+  const [warningMsg,setwarningMsg] =useState('');
+  const navigate = useNavigate();
+
   const handleFormSubmit =async (e) => {
     setwarningMsg('')
     e.preventDefault();
@@ -11,7 +14,8 @@ const OTP = ({otp}) => {
     console.log(otp.otp);
     if(otphere==otp.otp){
         const data=await saveUser(otp.userDetails);
-        console.log(data)
+        console.log(data);
+        navigate("/signin");
     }else{
         setwarningMsg('Enter OTP is incorrect')
     }

@@ -129,13 +129,15 @@
           return;
         }
 
-        const response = await signup({ username, email, password });
+        const userDetails = { username, email, password, confirmPassword };
 
-        if (response.signup) {
-          window.location.href = "https://fusionflow-signin.onrender.com";
-        } else {
-          warningMsg.textContent = response.msg;
-        }
+        const response = await signup(userDetails);
+
+        // if (response.signup) {
+        //   window.location.href = 'https://fusionflow-signin.onrender.com';
+        // } else {
+        //   warningMsg.textContent = response.msg;
+        // }
       });
 
       async function signup(userDetails) {

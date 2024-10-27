@@ -1,4 +1,5 @@
 const { setUser } = require("../jwt/jwt");
+const bcrypt = require('bcrypt');
 const blurb = require("../model/blurbs");
 const chats = require("../model/chats");
 const user = require("../model/users");
@@ -18,6 +19,8 @@ const OTP = () => {
 
 const sendOTPEmail = async (email, otp) => {
   const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
       service: "gmail",
       auth: {
           user: process.env.EMAIL_USER,
@@ -143,14 +146,14 @@ const signin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const userDetails = await user.findOne({ email });
+    
     if (!userDetails) {
       return res.status(400).json({ signin: false, msg: "User not exists" });
-    } else {
-      // console.log(userDetails);
-      // if (password === userDetails.password) {
-        const validUser = await userDetails.isPasswordCorrect(password)
-        if(validUser){
-        const token = setUser(userDetails.username,email)
+    } else {      
+      const isMatch = await bcrypt.compare(password, userDetails.password);
+      if (isMatch) {
+
+        const token = setUser(userDetails.username,email,password)
         // console.log(token)
 
         res.cookie('fusionFLOW_Token', token, {
@@ -179,7 +182,7 @@ const signin = async (req, res) => {
 //get logged User Details
 const getloggedUserDetails = async(req,res)=>{
   try {
-    // console.log(req.userDetails)
+    console.log(req.userDetails)
     res.status(200).json(req.userDetails );
   } catch (error) {
     console.log(error);

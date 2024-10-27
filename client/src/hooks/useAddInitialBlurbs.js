@@ -32,8 +32,8 @@ const useAddInitialBlurbs = () => {
     });
     const initialBlurbs = await response.json();
     if (initialBlurbs.signin === false) {
-      // window.open("/signin", "_parent");
-      window.open("https://fusionflow-signin.onrender.com", "_parent");
+      window.open("/signin", "_parent");
+      // window.open("https://fusionflow-signin.onrender.com", "_parent");
       return [];
     }
     dispatch(blurbsSliceAction.addInitialBlurbs(initialBlurbs));

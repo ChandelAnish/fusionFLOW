@@ -1,7 +1,15 @@
 function Navbar() {
+    const navLinkStyles = {
+        color: "white",
+        margin:"5px 8px",        
+        textDecoration:"none",
+        textAlign:"center",
+        fontFamily: "Alegreya, serif",
+        fontSize:"1.2rem"
+    }
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <nav className="navbar navbar-expand-lg" style={{margin:0, backgroundColor:"#FFD717", background:"linear-gradient(90deg, rgba(22,13,28,1) 40%, rgba(255,215,23,1) 100%)", boxShadow:"5px 0px 7px 2px grey"}}>
                 <div className="container-fluid">
                     {/* <a className="navbar-brand" href="#">Navbar</a> */}
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,14 +17,14 @@ function Navbar() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                            <li style={{...navLinkStyles}}>
+                                <a  aria-current="page" href="/">Home</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Social Invites</a>
+                            <li style={{...navLinkStyles}} >
+                                <a href="#">Social Invites</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Call Logs</a>
+                            <li style={{...navLinkStyles}}>
+                                <a  href="#">Call Logs</a>
                             </li>
                         </ul>
                         <form className="d-flex" role="search">
