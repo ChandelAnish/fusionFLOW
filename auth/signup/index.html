@@ -107,13 +107,14 @@
 
         const userDetails = { username, email, password, confirmPassword };
 
-        const response = await signup(userDetails);
+        // const response = await signup(userDetails);
+        console.log("Over here", userDetails);
 
-        if (response.signup) {
-          window.location.href = 'https://fusionflow-signin.onrender.com';
-        } else {
-          warningMsg.textContent = response.msg;
-        }
+        // if (response.signup) {
+        //   window.location.href = 'https://fusionflow-signin.onrender.com';
+        // } else {
+        //   warningMsg.textContent = response.msg;
+        // }
       });
 
       async function signup(userDetails) {

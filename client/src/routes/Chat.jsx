@@ -51,7 +51,7 @@ export default function Chat() {
 
 
   return (
-    <div className="d-flex" style={{ height: '87vh', width: '100%' }}>
+    <div className="d-flex" style={{ height: '90%', width: '100%', overflowY:"hidden" }}>
       {(!videoCall) && <Sidebar startChat={startChat} onlineUsers={onlineUsers} />}
       {(!videoCall) && <ChatWindow sender={userDetails.username} socket={socket} setVideoCall={setVideoCall} />}
       {(videoCall) && <VideoCall setVideoCall={setVideoCall} />}
