@@ -13,6 +13,7 @@ function App() {
 
   // Dispatch user details to the Redux store
   dispatch(userDetailsSliceAction.getUserDetails(userDetails));
+  console.log(userDetails);
 
   return (
     <>
@@ -40,10 +41,11 @@ export const getLoggedUserDetails = async () => {
     const userDetails = await response.json();
 
     
-    if (!userDetails.signin) {
-      window.open('https://fusionflow-signin.onrender.com', '_parent');
-      return {};
-    }
+    // if (!userDetails.signin) {
+    //   console.log("Here");
+    //   window.open('https://fusionflow-signin.onrender.com', '_parent');
+    //   return {};
+    // }
 
     
     delete userDetails.iat;

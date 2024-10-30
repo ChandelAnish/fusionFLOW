@@ -38,6 +38,7 @@ export default function SignUp({setOtp}) {
   }
 
   const signup = async (userDetails) => {
+    console.log(userDetails);
     try {
       const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/check`, {
         method: 'POST',

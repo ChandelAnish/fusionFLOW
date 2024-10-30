@@ -21,6 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+})
 app.use('/', router);
 
 // Create HTTP server
@@ -35,7 +39,7 @@ const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
     server.listen(port, () => {
-      console.log('Server listening at PORT and connected to DB', port);
+      console.log(`Server listening at ${port} and connected to DB`);
     });
   } catch (error) {
     console.log('error occurred : ', error);
