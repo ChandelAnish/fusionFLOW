@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/fusionFLOW-logo.png" />
+  <link rel="icon" type="image/png" href="D:\Users\Anagha\Documents\GitHub\fusionFLOW\auth\assets\fusionFLOW-logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>fusionFLOW</title>
 
@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Forum&display=swap" rel="stylesheet">
-
+  
   <style>
     /* Reset some default styles */
     * {
@@ -47,9 +47,61 @@
       font-weight: 500;
       transition: color 0.3s;
     } */
+/* Logo styling */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  /* Optional: Uncomment the following line if a top margin is desired */
+  /* margin-top: 10px; */
+}
+
+
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    } */
 
     nav a:hover {
       color: #571d87;
+    }
+
+    /* Login button styling */
+    .login-button {
+      padding: 10px 20px;
+      background-color: #571d87;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .login-button:hover {
+      background-color: #7321a1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     main {
@@ -103,7 +155,6 @@
       background-color: white;
     }
 
-    /* Button styles for the sign-in button */
     .sign-in-button {
       width: 100%;
       padding: 14px;
@@ -118,29 +169,8 @@
     }
 
     .sign-in-button:hover {
-      background-color: #571d87;
+      background-color: #7321a1;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .sign-in-button:active {
-      background-color: #571d87;
-    }
-
-    .sign-in-form .forgot-password {
-      text-align: right;
-      margin-top: -10px;
-      margin-bottom: 20px;
-    }
-
-    .sign-in-form .forgot-password a {
-      color: #0284c7;
-      font-size: 14px;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .sign-in-form .forgot-password a:hover {
-      color: #0369a1;
     }
 
     footer {
@@ -223,6 +253,17 @@ nav ul li a:hover::after{
 <body>
   <div id="root"></div>
   <header>
+
+    <div class="logo">
+      <img src="fusionFLOW-logo.png" alt="fusionFLOW Logo">
+      <h1>fusionFLOW</h1>
+    </div>
+    <nav>
+      <a href="/features">Features</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <button class="login-button">Login</button>
+
     <nav>
       <div class="logo">FusionFlow</div>
       <ul >
@@ -232,6 +273,7 @@ nav ul li a:hover::after{
           <li> <a href="#contact">Contact us</a></li>
           
       </ul>
+
 
     </nav>
   </header>
@@ -250,13 +292,16 @@ nav ul li a:hover::after{
         </div>
 
         <button type="submit" class="sign-in-button">Sign In</button>
-
       </form>
     </div>
   </main>
   <footer>
     <p>&copy; 2024 fusionFLOW. All rights reserved.</p>
-  </footer> 
+
+  </footer>
+
+
+
   <script type="module" src="/src/main.jsx"></script>
 </body>
 
