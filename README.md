@@ -154,6 +154,14 @@ npm run dev
 8. Visit the application:
 Launch the live server for the login page.
 
+## 🌟 Contributors
+
+A huge thanks to all our amazing contributors! 🎉
+
+<a href="https://github.com/ChandelAnish/fusionFLOW/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=ChandelAnish/fusionFLOW"/>
+</a>
+
 ## 👨‍💻 Contributing
 
 Feel free to fork this repository and contribute by submitting a pull request. For major changes, please open an issue first to discuss what you'd like to change.
